@@ -1,8 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
-
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="681.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox prefHeight="422.0" prefWidth="542.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Visao Geral" />
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <SplitPane dividerPositions="0.2537037037037037, 0.49444444444444446" prefHeight="379.0" prefWidth="542.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="152.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Movimentacao e Caixa" />
+                                 </children></AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Lancamentos" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Fluxo" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="A pagar e receber" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Pagas e recebidas" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Extrato de contas" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Cartoes de credito" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Metas" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Orcamento" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Economia" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Relatorios" />
+                                 </children>
+                              </AnchorPane>
+                              <Separator prefWidth="200.0" />
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Investimentos" />
+                                 </children>
+                              </AnchorPane>
+                              <Separator prefWidth="200.0" />
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Cadastros" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Categorias" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Contas" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Documentos" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Regras de Preenchimento" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Importar lancamentos" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Fechamento posicao" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+                  <AnchorPane prefHeight="308.0" prefWidth="61.0">
+                     <children>
+                        <ChoiceBox layoutX="5.0" prefHeight="28.0" prefWidth="97.0" />
+                        <Label layoutX="14.0" layoutY="5.0" text="Mes/Ano" />
+                     </children>
+                  </AnchorPane>
+                  <FlowPane prefHeight="308.0" prefWidth="377.0" />
+              </items>
+            </SplitPane>
+            <HBox prefHeight="13.0" prefWidth="542.0">
+               <children>
+                  <Label text="Versao teste" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Label text="Label" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
