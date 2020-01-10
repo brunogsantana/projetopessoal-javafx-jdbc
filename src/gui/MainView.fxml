@@ -20,7 +20,10 @@
          <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="Visao Geral" />
+                <Menu mnemonicParsing="false" text="Visao Geral">
+                     <items>
+                        <MenuItem fx:id="menuItemVisaoGeral" mnemonicParsing="false" onAction="#onMenuItemVisaoGeralClick" text="Retornar Menu Visao Geral" />
+                     </items></Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
                     <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutClick" text="About" />
