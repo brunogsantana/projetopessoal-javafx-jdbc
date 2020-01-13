@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.ContaService;
 
 public class MainViewController implements Initializable {
 
@@ -90,7 +91,7 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemVisaoGeralClick() {
 		System.out.println("onMenuVisaoGeralClick");
-// to repair		loadView("/gui/MainView.fxml");
+		loadView("/gui/Return.fxml");
 	}
 	
 	@FXML
@@ -165,7 +166,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onLabelContasClick() {
-		loadView("/gui/ContaList.fxml");
+		loadView2("/gui/ContaList.fxml");
 	}
 	
 	@FXML
@@ -213,4 +214,31 @@ public class MainViewController implements Initializable {
 		}
 		
 	}
+	
+	
+	private synchronized void loadView2 (String absoluteName) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			VBox newVBox = loader.load();
+			
+			Scene mainScene= Main.getMainScene();
+			VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			
+			Node mainMenu=mainVBox.getChildren().get(0);
+			mainVBox.getChildren().clear();
+			mainVBox.getChildren().add(mainMenu);
+			mainVBox.getChildren().addAll(newVBox.getChildren());
+			
+			ContaListController controller = loader.getController();
+			controller.setContaService(new ContaService());
+			controller.updateTableView();
+			
+		} 
+		catch (IOException e) {
+			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
+		}
+		
+	}
+	
+	
 }

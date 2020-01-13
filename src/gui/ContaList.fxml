@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="346.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ContaListController">
+<VBox prefHeight="346.0" prefWidth="873.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ContaListController">
    <children>
       <Label text="Registro de Contas">
          <font>
@@ -26,8 +26,16 @@
       </ToolBar>
       <TableView fx:id="tableViewConta" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="tableColumnHolder" prefWidth="75.0" text="Nome" />
+          <TableColumn fx:id="tableColumnId" prefWidth="39.33334219455719" text="ID" />
+          <TableColumn fx:id="tableColumnHolder" prefWidth="141.99999618530273" text="Nome" />
+            <TableColumn fx:id="tableColumnCPF" prefWidth="94.66670227050781" text="CPF" />
+            <TableColumn fx:id="tableColumnBanco" prefWidth="86.0" text="Banco" />
+            <TableColumn fx:id="tableColumnNumeroBanco" prefWidth="90.66668701171875" text="Numero Banco" />
+            <TableColumn fx:id="tableColumnNumeroAgencia" prefWidth="71.33328247070312" text="Agencia" />
+            <TableColumn fx:id="tableColumnNumeroConta" prefWidth="70.66668701171875" text="Conta" />
+            <TableColumn fx:id="tableColumnDataCadastro" prefWidth="103.333251953125" text="Data de Cadastro" />
+            <TableColumn fx:id="tableColumnSaldoAtual" prefWidth="75.3333740234375" text="Saldo Atual" />
+            <TableColumn fx:id="tableColumnFavorita" prefWidth="75.0" text="Favorita" />
         </columns>
       </TableView>
    </children>

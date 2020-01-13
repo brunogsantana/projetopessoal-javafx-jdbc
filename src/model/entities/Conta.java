@@ -16,7 +16,7 @@ public class Conta implements Serializable {
 
 	private Integer id;
 	private String holder;
-	private Integer cpf;
+	private String cpf;
 	private String banco;
 	private Integer numeroBanco;
 	private Integer numeroConta;
@@ -32,12 +32,12 @@ public class Conta implements Serializable {
 	public Conta() {
 	}
 
-	public Conta(Integer id, String holder, Integer cpf, String banco, Integer numeroBanco, Integer numeroConta,
+	public Conta(Integer id, String holder, String string, String banco, Integer numeroBanco, Integer numeroConta,
 			Integer numeroAgencia, Date dataCadastro, Double saldoAtual, Double saldoAnterior, Double saldoInicial,
 			Boolean favorita) {
 		this.id = id;
 		this.holder = holder;
-		this.cpf = cpf;
+		this.cpf = string;
 		this.banco = banco;
 		this.numeroBanco = numeroBanco;
 		this.numeroConta = numeroConta;
@@ -69,11 +69,11 @@ public class Conta implements Serializable {
 		this.holder = holder;
 	}
 
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
