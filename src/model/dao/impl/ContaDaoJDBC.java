@@ -37,6 +37,7 @@ public class ContaDaoJDBC implements ContaDao {
 				obj.setId(rs.getInt("Id"));
 				obj.setName(rs.getString("Name"));
 				obj.setCpf(rs.getString("CPF"));
+				obj.setTipoConta(rs.getString("TipoConta"));
 				obj.setBanco(rs.getString("Banco"));
 				obj.setNumeroBanco(rs.getInt("NumeroBanco"));
 				obj.setNumeroAgencia(rs.getInt("NumeroAgencia"));
@@ -73,6 +74,7 @@ public class ContaDaoJDBC implements ContaDao {
 				obj.setId(rs.getInt("Id"));
 				obj.setName(rs.getString("Name"));
 				obj.setCpf(rs.getString("CPF"));
+				obj.setTipoConta(rs.getString("TipoConta"));
 				obj.setBanco(rs.getString("Banco"));
 				obj.setNumeroBanco(rs.getInt("NumeroBanco"));
 				obj.setNumeroAgencia(rs.getInt("NumeroAgencia"));
@@ -145,13 +147,14 @@ public class ContaDaoJDBC implements ContaDao {
 			st.setInt(1, obj.getId());
 			st.setString(2, obj.getName());
 			st.setString(3, obj.getCpf());
-			st.setString(4, obj.getBanco());
-			st.setInt(5,obj.getNumeroBanco());
-			st.setInt(6,obj.getNumeroAgencia());
-			st.setInt(7, obj.getNumeroConta());
-			st.setDate(8, (Date) obj.getDataCadastro());
-			st.setDouble(9,obj.getSaldoAtual());
-			st.setBoolean(10, obj.getFavorita());
+			st.setString(4,obj.getTipoConta());
+			st.setString(5, obj.getBanco());
+			st.setInt(6,obj.getNumeroBanco());
+			st.setInt(7,obj.getNumeroAgencia());
+			st.setInt(8, obj.getNumeroConta());
+			st.setDate(9, (Date) obj.getDataCadastro());
+			st.setDouble(10,obj.getSaldoAtual());
+			st.setBoolean(11, obj.getFavorita());
 
 			st.executeUpdate();
 		}

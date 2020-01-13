@@ -4,6 +4,8 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import model.entities.enums.TipoConta;
+
 
 
 public class Conta implements Serializable {
@@ -17,6 +19,7 @@ public class Conta implements Serializable {
 	private Integer id;
 	private String name;
 	private String cpf;
+	private String tipoConta;
 	private String banco;
 	private Integer numeroBanco;
 	private Integer numeroConta;
@@ -26,18 +29,21 @@ public class Conta implements Serializable {
 	private Double saldoAnterior;
 	private Double saldoInicial;
 	private Boolean favorita;
-	
-	
+
+
 
 	public Conta() {
 	}
 
-	public Conta(Integer id, String name, String cpf, String banco, Integer numeroBanco, Integer numeroConta,
-			Integer numeroAgencia, Date dataCadastro, Double saldoAtual, Double saldoAnterior, Double saldoInicial,
-			Boolean favorita) {
+	
+	public Conta(Integer id, String name, String cpf, String tipoConta, String banco, Integer numeroBanco,
+			Integer numeroConta, Integer numeroAgencia, Date dataCadastro, Double saldoAtual, Double saldoAnterior,
+			Double saldoInicial, Boolean favorita) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
+		this.tipoConta = tipoConta;
 		this.banco = banco;
 		this.numeroBanco = numeroBanco;
 		this.numeroConta = numeroConta;
@@ -50,9 +56,6 @@ public class Conta implements Serializable {
 	}
 
 
-
-	
-
 	public Integer getId() {
 		return id;
 	}
@@ -61,6 +64,15 @@ public class Conta implements Serializable {
 		this.id = id;
 	}
 
+	public String getTipoConta() {
+		return tipoConta;
+	}
+
+	public void setTipoConta(String tipoConta) {
+		this.tipoConta = tipoConta;
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -68,7 +80,7 @@ public class Conta implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -156,14 +168,17 @@ public class Conta implements Serializable {
 		int result = 1;
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
 		result = prime * result + ((favorita == null) ? 0 : favorita.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((numeroBanco == null) ? 0 : numeroBanco.hashCode());
+		result = prime * result + ((numeroConta == null) ? 0 : numeroConta.hashCode());
 		result = prime * result + ((saldoAnterior == null) ? 0 : saldoAnterior.hashCode());
 		result = prime * result + ((saldoAtual == null) ? 0 : saldoAtual.hashCode());
 		result = prime * result + ((saldoInicial == null) ? 0 : saldoInicial.hashCode());
+		result = prime * result + ((tipoConta == null) ? 0 : tipoConta.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -184,20 +199,25 @@ public class Conta implements Serializable {
 				return false;
 		} else if (!favorita.equals(other.favorita))
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
 		if (numeroBanco == null) {
 			if (other.numeroBanco != null)
 				return false;
 		} else if (!numeroBanco.equals(other.numeroBanco))
+			return false;
+		if (numeroConta == null) {
+			if (other.numeroConta != null)
+				return false;
+		} else if (!numeroConta.equals(other.numeroConta))
 			return false;
 		if (saldoAnterior == null) {
 			if (other.saldoAnterior != null)
@@ -214,14 +234,27 @@ public class Conta implements Serializable {
 				return false;
 		} else if (!saldoInicial.equals(other.saldoInicial))
 			return false;
+		if (tipoConta != other.tipoConta)
+			return false;
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Conta [id=" + id + ", name=" + name + ", cpf=" + cpf + ", banco=" + banco + ", numeroBanco="
-				+ numeroBanco + ", numeroConta=" + numeroConta + ", numeroAgencia=" + numeroAgencia + ", dataCadastro="
-				+ dataCadastro + ", saldoAtual=" + saldoAtual + ", saldoAnterior=" + saldoAnterior + ", saldoInicial="
-				+ saldoInicial + ", favorita=" + favorita + "]";
+		return "Conta [id=" + id + ", name=" + name + ", cpf=" + cpf + ", tipoConta=" + tipoConta + ", banco=" + banco
+				+ ", numeroBanco=" + numeroBanco + ", numeroConta=" + numeroConta + ", numeroAgencia=" + numeroAgencia
+				+ ", dataCadastro=" + dataCadastro + ", saldoAtual=" + saldoAtual + ", saldoAnterior=" + saldoAnterior
+				+ ", saldoInicial=" + saldoInicial + ", favorita=" + favorita + "]";
 	}
+
+
+
+
+
+	
+
+	
+
+
 }

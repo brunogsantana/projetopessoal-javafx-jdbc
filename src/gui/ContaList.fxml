@@ -29,6 +29,7 @@
           <TableColumn fx:id="tableColumnId" prefWidth="39.33334219455719" text="ID" />
           <TableColumn fx:id="tableColumnName" prefWidth="141.99999618530273" text="Nome" />
             <TableColumn fx:id="tableColumnCPF" prefWidth="94.66670227050781" text="CPF" />
+            <TableColumn fx:id="tableColumnTipoConta" prefWidth="75.0" text="Tipo Conta" />
             <TableColumn fx:id="tableColumnBanco" prefWidth="86.0" text="Banco" />
             <TableColumn fx:id="tableColumnNumeroBanco" prefWidth="90.66668701171875" text="Numero Banco" />
             <TableColumn fx:id="tableColumnNumeroAgencia" prefWidth="71.33328247070312" text="Agencia" />

@@ -25,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Conta;
+import model.entities.enums.TipoConta;
 import model.services.ContaService;
 
 public class ContaListController implements Initializable {
@@ -44,6 +45,9 @@ public class ContaListController implements Initializable {
 	@FXML
 	private TableColumn<Conta, Integer> tableColumnCPF;
 
+	@FXML
+	private TableColumn<Conta, TipoConta> tableColumnTipoConta;
+	
 	@FXML
 	private TableColumn<Conta, String> tableColumnBanco;
 
@@ -91,6 +95,7 @@ public class ContaListController implements Initializable {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		tableColumnCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+		tableColumnTipoConta.setCellValueFactory(new PropertyValueFactory<>("tipoConta"));		
 		tableColumnBanco.setCellValueFactory(new PropertyValueFactory<>("banco"));
 		tableColumnNumeroBanco.setCellValueFactory(new PropertyValueFactory<>("numeroBanco"));
 		tableColumnNumeroConta.setCellValueFactory(new PropertyValueFactory<>("numeroConta"));
