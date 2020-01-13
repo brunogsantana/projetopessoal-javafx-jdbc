@@ -1,5 +1,10 @@
 package gui.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javafx.scene.control.TextField;
 
 public class Constraints {
@@ -27,4 +32,19 @@ public class Constraints {
                 }
 		    });
 	}
+	
+	public static void setTextFieldtoDate (TextField txt ) {
+		txt.textProperty().addListener((obs,oldValue,newValue) ->{
+			if (newValue!=null) {
+				try {
+					new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH).parse(txt.toString());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+
 }
