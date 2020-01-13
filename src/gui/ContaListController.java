@@ -30,7 +30,7 @@ public class ContaListController implements Initializable {
 	private TableColumn<Conta, Integer> tableColumnId;
 	
 	@FXML
-	private TableColumn<Conta, String> tableColumnHolder;
+	private TableColumn<Conta, String> tableColumnName;
 	
 	@FXML
 	private TableColumn<Conta, Integer> tableColumnCPF;
@@ -79,7 +79,7 @@ public class ContaListController implements Initializable {
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnHolder.setCellValueFactory(new PropertyValueFactory<>("holder"));
+		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		tableColumnCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 		tableColumnBanco.setCellValueFactory(new PropertyValueFactory<>("banco"));
 		tableColumnNumeroBanco.setCellValueFactory(new PropertyValueFactory<>("numeroBanco"));

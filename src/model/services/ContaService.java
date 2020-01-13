@@ -1,15 +1,16 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import model.dao.ContaDao;
+import model.dao.DaoFactory;
 import model.entities.Conta;
 
 public class ContaService {
 	
+	private ContaDao dao = DaoFactory.createContaDao();
+	
 	public List<Conta> findAll(){
-		List<Conta> list= new ArrayList<>();
-		list.add(new Conta (1,"Bruno Santana", "02268984583", "Banco do Brasil", null, null, null, null, null, null, null, null));
-		return list;
+		return dao.findAll();
 	}
 }

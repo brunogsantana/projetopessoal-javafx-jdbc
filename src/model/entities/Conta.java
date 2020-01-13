@@ -15,7 +15,7 @@ public class Conta implements Serializable {
 
 
 	private Integer id;
-	private String holder;
+	private String name;
 	private String cpf;
 	private String banco;
 	private Integer numeroBanco;
@@ -32,12 +32,12 @@ public class Conta implements Serializable {
 	public Conta() {
 	}
 
-	public Conta(Integer id, String holder, String string, String banco, Integer numeroBanco, Integer numeroConta,
+	public Conta(Integer id, String name, String cpf, String banco, Integer numeroBanco, Integer numeroConta,
 			Integer numeroAgencia, Date dataCadastro, Double saldoAtual, Double saldoAnterior, Double saldoInicial,
 			Boolean favorita) {
 		this.id = id;
-		this.holder = holder;
-		this.cpf = string;
+		this.name = name;
+		this.cpf = cpf;
 		this.banco = banco;
 		this.numeroBanco = numeroBanco;
 		this.numeroConta = numeroConta;
@@ -61,12 +61,12 @@ public class Conta implements Serializable {
 		this.id = id;
 	}
 
-	public String getHolder() {
-		return holder;
+	public String getName() {
+		return name;
 	}
 
-	public void setHolder(String holder) {
-		this.holder = holder;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getCpf() {
@@ -156,7 +156,7 @@ public class Conta implements Serializable {
 		int result = 1;
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
 		result = prime * result + ((favorita == null) ? 0 : favorita.hashCode());
-		result = prime * result + ((holder == null) ? 0 : holder.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((numeroBanco == null) ? 0 : numeroBanco.hashCode());
 		result = prime * result + ((saldoAnterior == null) ? 0 : saldoAnterior.hashCode());
@@ -184,10 +184,10 @@ public class Conta implements Serializable {
 				return false;
 		} else if (!favorita.equals(other.favorita))
 			return false;
-		if (holder == null) {
-			if (other.holder != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!holder.equals(other.holder))
+		} else if (!name.equals(other.name))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -219,7 +219,7 @@ public class Conta implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Conta [id=" + id + ", holder=" + holder + ", cpf=" + cpf + ", banco=" + banco + ", numeroBanco="
+		return "Conta [id=" + id + ", name=" + name + ", cpf=" + cpf + ", banco=" + banco + ", numeroBanco="
 				+ numeroBanco + ", numeroConta=" + numeroConta + ", numeroAgencia=" + numeroAgencia + ", dataCadastro="
 				+ dataCadastro + ", saldoAtual=" + saldoAtual + ", saldoAnterior=" + saldoAnterior + ", saldoInicial="
 				+ saldoInicial + ", favorita=" + favorita + "]";
