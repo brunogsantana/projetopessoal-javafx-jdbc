@@ -3,7 +3,9 @@ package gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import db.DbException;
 import gui.listeners.DataChangeListener;
@@ -21,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Conta;
 import model.entities.enums.TipoConta;
+import model.exceptions.ValidationException;
 import model.services.ContaService;
 
 public class ContaFormController implements Initializable {
@@ -130,6 +133,9 @@ public class ContaFormController implements Initializable {
 			notifyDataChangeListeners();
 			Utils.currentStage(event).close();			
 			}
+		catch (ValidationException e) {
+			setErrorMessages(e.getErrors());
+		}
 		catch (DbException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
@@ -146,7 +152,59 @@ public class ContaFormController implements Initializable {
 	private Conta getFormData() {
 		Conta obj = new Conta();
 		
+		ValidationException exception = new ValidationException("Validation error");
+		
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
+		
+		if(txtName.getText()==null || txtName.getText().trim().equals("")) {
+			exception.addError("name", "Field can't be empty");
+		}
+
+		
+		if(txtCpf.getText()==null || txtCpf.getText().trim().equals("")) {
+			exception.addError("cpf", "Field can't be empty");
+		}
+
+		
+/*		if(txtTipoConta.getText()==null || txtTipoConta.getText().trim().equals("")) {
+			exception.addError("tipoConta", "Field can't be empty");
+		}
+*/
+		
+		if(txtBanco.getText()==null || txtBanco.getText().trim().equals("")) {
+			exception.addError("banco", "Field can't be empty");
+		}
+
+		
+		if(txtNumeroAgencia.getText()==null || txtNumeroAgencia.getText().trim().equals("")) {
+			exception.addError("numeroAgencia", "Field can't be empty");
+		}
+
+		
+		if(txtNumeroBanco.getText()==null || txtNumeroBanco.getText().trim().equals("")) {
+			exception.addError("numeroBanco", "Field can't be empty");
+		}
+
+		
+		if(txtNumeroConta.getText()==null || txtNumeroBanco.getText().trim().equals("")) {
+			exception.addError("numeroBanco", "Field can't be empty");
+		}
+
+		
+/*		if(txtDataCadastro.getText()==null || txtDataCadastro.getText().trim().equals("")) {
+			exception.addError("dataCadastro", "Field can't be empty");
+		}
+*/
+		
+		if(txtSaldoAtual.getText()==null || txtSaldoAtual.getText().trim().equals("")) {
+			exception.addError("saldoAtual", "Field can't be empty");
+		}
+
+		
+		if(txtSaldoInicial.getText()==null || txtSaldoInicial.getText().trim().equals("")) {
+			exception.addError("saldoInicial", "Field can't be empty");
+		}
+		
 		obj.setName(txtName.getText());
 		obj.setCpf(txtCpf.getText());
 //		obj.setTipoConta(txtTipoConta.getText());
@@ -159,6 +217,10 @@ public class ContaFormController implements Initializable {
 		obj.setSaldoInicial(Utils.tryParseToDouble(txtSaldoInicial.getText()));
 //		obj.setFavorita(txtFavorita.getText());
 				
+		if (exception.getErrors().size()> 0) {
+			throw exception;
+		}
+		
 		return obj;
 	}
 
@@ -213,7 +275,43 @@ public class ContaFormController implements Initializable {
 //		txtDataCadastro.setText(String.valueOf(entity.getDataCadastro()));
 		txtSaldoInicial.setText(String.valueOf(entity.getSaldoInicial()));
 		txtSaldoAtual.setText(String.valueOf(entity.getSaldoAtual()));
-
+	}
+	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
 		
+		if (fields.contains("name")) {
+			labelErrorName.setText(errors.get("name"));
+		}
+		if (fields.contains("cpf")) {
+			labelErrorCpf.setText(errors.get("cpf"));
+		}
+		if (fields.contains("tipoConta")) {
+			labelErrorTipoConta.setText(errors.get("tipoConta"));
+		}
+		if (fields.contains("banco")) {
+			labelErrorBanco.setText(errors.get("banco"));
+		}
+		if (fields.contains("numeroBanco")) {
+			labelErrorNumeroBanco.setText(errors.get("numeroBanco"));
+		}
+		if (fields.contains("numeroAgencia")) {
+			labelErrorNumeroAgencia.setText(errors.get("numeroAgencia"));
+		}
+		if (fields.contains("numeroConta")) {
+			labelErrorNumeroConta.setText(errors.get("numeroConta"));
+		}
+/*		if (fields.contains("dataCadastro")) {
+			labelErrorDataCadastro.setText(errors.get("dataCadastro"));
+		}
+*/		if (fields.contains("saldoInicial")) {
+			labelErrorSaldoInicial.setText(errors.get("saldoInicial"));
+		}
+		if (fields.contains("saldoAtual")) {
+			labelErrorSaldoAtual.setText(errors.get("saldoAtual"));
+		}
+/*		if (fields.contains("favorita")) {
+			labelErrorFavorita.setText(errors.get("favorita"));
+		} */
 	}
 }
