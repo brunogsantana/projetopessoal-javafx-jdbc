@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -25,6 +28,9 @@ public class ContaFormController implements Initializable {
 	private Conta entity;
 	
 	private ContaService service;
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
+	
 		
 	@FXML
 	private TextField txtId;
@@ -106,6 +112,10 @@ public class ContaFormController implements Initializable {
 		this.service = service;
 	}
 
+	public void subscribeDataChangeListener (DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
+	
 	@FXML
 	private void onBtSaveAction(ActionEvent event) {
 		if (entity == null) {
@@ -117,6 +127,7 @@ public class ContaFormController implements Initializable {
 		try {
 			entity = getFormData();
 			service.saveOrUpdate(entity);
+			notifyDataChangeListeners();
 			Utils.currentStage(event).close();			
 			}
 		catch (DbException e) {
@@ -125,6 +136,13 @@ public class ContaFormController implements Initializable {
 			
 	}
 	
+	private void notifyDataChangeListeners() {
+		for (DataChangeListener listener: dataChangeListeners) {
+			listener.onDataChanged();
+		}
+		
+	}
+
 	private Conta getFormData() {
 		Conta obj = new Conta();
 		

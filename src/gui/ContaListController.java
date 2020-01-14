@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -28,7 +29,7 @@ import model.entities.Conta;
 import model.entities.enums.TipoConta;
 import model.services.ContaService;
 
-public class ContaListController implements Initializable {
+public class ContaListController implements Initializable, DataChangeListener {
 	
 	private ContaService service;
 	
@@ -127,6 +128,7 @@ public class ContaListController implements Initializable {
 			ContaFormController controller = loader.getController();
 			controller.setConta(obj);
 			controller.setContaService(new ContaService());
+			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
@@ -141,6 +143,11 @@ public class ContaListController implements Initializable {
 		catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Error Loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();		
 	}
 	
 	
