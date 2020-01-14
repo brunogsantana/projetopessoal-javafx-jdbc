@@ -37,6 +37,7 @@
             <TableColumn fx:id="tableColumnDataCadastro" prefWidth="103.333251953125" text="Data de Cadastro" />
             <TableColumn fx:id="tableColumnSaldoAtual" prefWidth="75.3333740234375" text="Saldo Atual" />
             <TableColumn fx:id="tableColumnFavorita" prefWidth="75.0" text="Favorita" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>
