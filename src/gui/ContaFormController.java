@@ -1,19 +1,24 @@
 package gui;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import gui.util.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import model.entities.Conta;
+import model.entities.enums.TipoConta;
 
 public class ContaFormController implements Initializable {
 
+	private Conta entity;
+	
+	
 	@FXML
 	private TextField txtId;
 	
@@ -24,7 +29,7 @@ public class ContaFormController implements Initializable {
 	private TextField txtCpf;
 	
 	@FXML
-	private TextField txtTipoConta;
+	private ChoiceBox<TipoConta> ChoiceBoxTipoConta;
 	
 	@FXML
 	private TextField txtBanco;
@@ -38,8 +43,8 @@ public class ContaFormController implements Initializable {
 	@FXML
 	private TextField txtNumeroAgencia;
 	
-	@FXML
-	private TextField txtDataCadastro;
+//	@FXML
+//	private TextField txtDataCadastro;
 	
 	@FXML
 	private TextField txtSaldoAtual;
@@ -48,7 +53,7 @@ public class ContaFormController implements Initializable {
 	private TextField txtSaldoInicial;
 	
 	@FXML
-	private TextField txtFavorita;
+	private CheckBox CheckBoxFavorita;
 	
 	@FXML
 	private Label labelErrorName;
@@ -71,8 +76,8 @@ public class ContaFormController implements Initializable {
 	@FXML
 	private Label labelErrorNumeroAgencia;
 	
-	@FXML
-	private Label labelErrorDataCadastro;
+//	@FXML
+//	private Label labelErrorDataCadastro;
 	
 	@FXML
 	private Label labelErrorSaldoAtual;
@@ -81,13 +86,14 @@ public class ContaFormController implements Initializable {
 	private Label labelErrorSaldoInicial;
 	
 	@FXML
-	private Label labelErrorFavorita;
-	
-	@FXML
 	private Button btSave;
 
 	@FXML
 	private Button btCancel;
+	
+	public void setConta (Conta entity) {
+		this.entity = entity;
+	}
 	
 	@FXML
 	private void onBtSaveAction() {
@@ -99,6 +105,16 @@ public class ContaFormController implements Initializable {
 	System.out.println("onBtCancelAction");	
 	}
 	
+	@FXML
+	private void onChoiceBoxTipoContaAction() {
+	System.out.println("onChoiceBoxTipoContaAction");	
+	}
+	
+	@FXML
+	private void onCheckBoxFavoritaAction() {
+	System.out.println("onCheckBoxFavoritaAction");	
+	}
+	
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
 		initializeNodes();
@@ -108,7 +124,7 @@ public class ContaFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtName, 30);
 		Constraints.setTextFieldMaxLength(txtCpf, 11);
-		Constraints.setTextFieldMaxLength(txtTipoConta, 30);
+//		Constraints.setTextFieldMaxLength(txtTipoConta, 30);
 		Constraints.setTextFieldMaxLength(txtBanco, 30);
 		Constraints.setTextFieldInteger(txtNumeroBanco);
 		Constraints.setTextFieldMaxLength(txtNumeroBanco, 3);
@@ -117,7 +133,24 @@ public class ContaFormController implements Initializable {
 //		Constraints.setTextFieldtoDate(txtDataCadastro);
 		Constraints.setTextFieldDouble(txtSaldoAtual);
 		Constraints.setTextFieldDouble(txtSaldoInicial);
-		Constraints.setTextFieldInteger(txtFavorita);
+//		Constraints.setTextFieldInteger(txtFavorita);
+	}
+	
+	public void updateFormData () {
+		if (entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+		txtId.setText(String.valueOf(entity.getId()));
+		txtName.setText(entity.getName());
+		txtCpf.setText(entity.getCpf());
+//		txtTipoConta.setText(entity.getTipoConta());
+		txtBanco.setText(entity.getBanco());
+		txtNumeroBanco.setText(String.valueOf(entity.getNumeroBanco()));
+		txtNumeroAgencia.setText(String.valueOf(entity.getNumeroAgencia()));
+		txtNumeroConta.setText(String.valueOf(entity.getNumeroConta()));
+//		txtDataCadastro.setText(String.valueOf(entity.getDataCadastro()));
+		txtSaldoInicial.setText(String.valueOf(entity.getSaldoInicial()));
+		txtSaldoAtual.setText(String.valueOf(entity.getSaldoAtual()));
 
 		
 	}

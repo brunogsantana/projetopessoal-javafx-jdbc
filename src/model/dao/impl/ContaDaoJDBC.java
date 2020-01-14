@@ -14,6 +14,7 @@ import db.DbException;
 import db.DbIntegrityException;
 import model.dao.ContaDao;
 import model.entities.Conta;
+import model.entities.enums.TipoConta;
 
 public class ContaDaoJDBC implements ContaDao {
 

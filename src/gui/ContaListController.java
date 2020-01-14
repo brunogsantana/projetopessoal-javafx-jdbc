@@ -78,7 +78,8 @@ public class ContaListController implements Initializable {
 	@FXML
 	public void onBtNewAction (ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/ContaForm.fxml", parentStage);
+		Conta obj = new Conta ();
+		createDialogForm(obj, "/gui/ContaForm.fxml", parentStage);
 	}
 	
 	public void setContaService (ContaService service) {
@@ -118,10 +119,14 @@ public class ContaListController implements Initializable {
 		tableViewConta.setItems(obsList);
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Conta obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			ContaFormController controller = loader.getController();
+			controller.setConta(obj);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Adicionar Conta");
