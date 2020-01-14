@@ -3,9 +3,14 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import db.DbException;
+import gui.util.Alerts;
 import gui.util.Constraints;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -13,12 +18,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Conta;
 import model.entities.enums.TipoConta;
+import model.services.ContaService;
 
 public class ContaFormController implements Initializable {
 
 	private Conta entity;
 	
-	
+	private ContaService service;
+		
 	@FXML
 	private TextField txtId;
 	
@@ -95,14 +102,51 @@ public class ContaFormController implements Initializable {
 		this.entity = entity;
 	}
 	
+	public void setContaService(ContaService service) {
+		this.service = service;
+	}
+
 	@FXML
-	private void onBtSaveAction() {
-	System.out.println("onBtSaveAction");	
+	private void onBtSaveAction(ActionEvent event) {
+		if (entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+		if (service == null) {
+			throw new IllegalStateException("Service was null");
+		}
+		try {
+			entity = getFormData();
+			service.saveOrUpdate(entity);
+			Utils.currentStage(event).close();			
+			}
+		catch (DbException e) {
+			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
+		}
+			
 	}
 	
+	private Conta getFormData() {
+		Conta obj = new Conta();
+		
+		obj.setId(Utils.tryParseToInt(txtId.getText()));
+		obj.setName(txtName.getText());
+		obj.setCpf(txtCpf.getText());
+//		obj.setTipoConta(txtTipoConta.getText());
+		obj.setBanco(txtBanco.getText());
+		obj.setNumeroAgencia(Utils.tryParseToInt(txtNumeroAgencia.getText()));
+		obj.setNumeroBanco(Utils.tryParseToInt(txtNumeroBanco.getText()));
+		obj.setNumeroConta(Utils.tryParseToInt(txtNumeroConta.getText()));
+//		obj.setDataCadastro(txtDataCadastro.getText());
+		obj.setSaldoAtual(Utils.tryParseToDouble(txtSaldoAtual.getText()));
+		obj.setSaldoInicial(Utils.tryParseToDouble(txtSaldoInicial.getText()));
+//		obj.setFavorita(txtFavorita.getText());
+				
+		return obj;
+	}
+
 	@FXML
-	private void onBtCancelAction() {
-	System.out.println("onBtCancelAction");	
+	private void onBtCancelAction(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 	
 	@FXML

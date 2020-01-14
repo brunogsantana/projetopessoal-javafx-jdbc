@@ -126,6 +126,7 @@ public class ContaListController implements Initializable {
 			
 			ContaFormController controller = loader.getController();
 			controller.setConta(obj);
+			controller.setContaService(new ContaService());
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
