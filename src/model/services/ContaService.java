@@ -22,4 +22,8 @@ public class ContaService {
 			dao.update(obj);
 		}
 	}
+	
+	public void remove(Conta obj) {
+		dao.deleteById(obj.getId());
+	}
 }
