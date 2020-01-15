@@ -35,6 +35,7 @@
             <TableColumn fx:id="tableColumnNumeroAgencia" prefWidth="71.33328247070312" text="Agencia" />
             <TableColumn fx:id="tableColumnNumeroConta" prefWidth="70.66668701171875" text="Conta" />
             <TableColumn fx:id="tableColumnDataCadastro" prefWidth="103.333251953125" text="Data de Cadastro" />
+            <TableColumn fx:id="tableColumnSaldoInicial" prefWidth="75.0" text="Saldo Inicial" />
             <TableColumn fx:id="tableColumnSaldoAtual" prefWidth="75.3333740234375" text="Saldo Atual" />
             <TableColumn fx:id="tableColumnFavorita" prefWidth="75.0" text="Favorita" />
             <TableColumn fx:id="tableColumnEDIT" prefWidth="75.0" />

@@ -2,16 +2,26 @@ package model.entities.enums;
 
 public enum TipoConta {
 	
-	CONTA_DINHEIRO (10),
-	CONTA_INVESTIMENTO (20) ;
+	CONTA_DINHEIRO ("Conta Dinheiro"),
+	CONTA_INVESTIMENTO ("Conta Investimento"),
+	CONTA_CORRENTE ("Conta Corrente"),
+	CONTA_EMPRESARIAL ("Conta Empresarial");
 
-	private final int tipoConta;
+	private final String tipoConta;
 
-	TipoConta(int tipoConta) {
+	TipoConta(String tipoConta) {
 		this.tipoConta = tipoConta;
 	}
+	
+	
+	public String toString() {
+		return tipoConta;
+	}
+	
 
-	public int getTipoContaAsInt() {
+
+	/* 
+	 public int getTipoContaAsInt() {
 		return tipoConta;
 	}
 
@@ -53,6 +63,6 @@ public enum TipoConta {
 			}
 		}
 		return null;
-	}
+	} */
 }
 

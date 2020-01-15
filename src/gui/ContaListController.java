@@ -70,6 +70,9 @@ public class ContaListController implements Initializable, DataChangeListener {
 
 	@FXML
 	private TableColumn<Conta, Double> tableColumnSaldoAtual;
+	
+	@FXML
+	private TableColumn<Conta, Double> tableColumnSaldoInicial;
 
 	@FXML
 	private TableColumn<Conta, Boolean> tableColumnFavorita;
@@ -111,6 +114,7 @@ public class ContaListController implements Initializable, DataChangeListener {
 		tableColumnNumeroConta.setCellValueFactory(new PropertyValueFactory<>("numeroConta"));
 		tableColumnNumeroAgencia.setCellValueFactory(new PropertyValueFactory<>("numeroAgencia"));
 		tableColumnDataCadastro.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
+		tableColumnSaldoInicial.setCellValueFactory(new PropertyValueFactory<>("saldoInicial"));
 		tableColumnSaldoAtual.setCellValueFactory(new PropertyValueFactory<>("saldoAtual"));
 		tableColumnFavorita.setCellValueFactory(new PropertyValueFactory<>("favorita"));
 

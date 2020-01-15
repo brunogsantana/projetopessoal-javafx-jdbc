@@ -4,8 +4,6 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import model.entities.enums.TipoConta;
-
 
 
 public class Conta implements Serializable {

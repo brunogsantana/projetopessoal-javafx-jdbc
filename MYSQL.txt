@@ -8,6 +8,7 @@ CREATE TABLE conta (
   NumeroAgencia int(11) DEFAULT NULL,
   NumeroConta int(11) DEFAULT NULL,
   DataCadastro datetime(6) DEFAULT NULL,
+  SaldoInicial double DEFAULT NULL,
   SaldoAtual double DEFAULT NULL,
   Favorita boolean DEFAULT NULL,
   PRIMARY KEY (Id)
@@ -24,9 +25,9 @@ CREATE TABLE seller (
   FOREIGN KEY (ContaId) REFERENCES conta (id)
 );
 
-INSERT INTO conta (Name, CPF, TipoConta, Banco, NumeroBanco, NumeroAgencia, NumeroConta, DataCadastro, SaldoAtual, Favorita) VALUES 
-  ('Bruno Santana', "02268984583", "Poupanca", "Banco do Brasil", 001, 1603, 420050, null, 2000.0, 0),
-  ('Fernanda Santana', "06167986606", "ContaCorrente", "Banco do Brasil", 001, 1603, 420050, null, 2000.0, 0);
+INSERT INTO conta (Name, CPF, TipoConta, Banco, NumeroBanco, NumeroAgencia, NumeroConta, DataCadastro, SaldoInicial, SaldoAtual, Favorita) VALUES 
+  ('Bruno Santana', "02268984583", "Poupanca", "Banco do Brasil", 001, 1603, 420050, '1998-04-21 00:00:00', 100.0, 2000.0, 0),
+  ('Fernanda Santana', "06167986606", "ContaCorrente", "Banco do Brasil", 001, 1603, 420050, '1988-01-15 00:00:00', 100.0, 2000.0, 0);
 
 INSERT INTO seller (Name, Email, BirthDate, BaseSalary, ContaId) VALUES 
   ('Bob Brown','bob@gmail.com','1998-04-21 00:00:00',1000,1),

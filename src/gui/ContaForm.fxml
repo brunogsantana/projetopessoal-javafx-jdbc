@@ -90,7 +90,7 @@
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
-            <TextField fx:id="txtSaldoAtual" editable="false" promptText="Saldo atual da conta" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <TextField fx:id="txtSaldoAtual" editable="false" promptText="Saldo atual da conta. Current lock to change" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -104,7 +104,7 @@
             <Label fx:id="labelErrorSaldoInicial" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="9" />
             <Label fx:id="labelErrorSaldoAtual" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="10" />
             <Label fx:id="labelErrorFavorita" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="11" />
-            <CheckBox fx:id="CheckBoxFavorita" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#onCheckBoxFavoritaAction" GridPane.columnIndex="1" GridPane.rowIndex="11">
+            <CheckBox fx:id="checkBoxFavorita" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#onCheckBoxFavoritaAction" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="11">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -112,8 +112,8 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </CheckBox>
-            <DatePicker fx:id="txtDataCadastro" prefHeight="25.0" prefWidth="170.0" promptText="Data que cadastrou neste programa" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <ChoiceBox fx:id="ChoiceBoxTipoConta" onDragDetected="#onChoiceBoxTipoContaAction" onDragDone="#onChoiceBoxTipoContaAction" onDragDropped="#onChoiceBoxTipoContaAction" onDragEntered="#onChoiceBoxTipoContaAction" onDragExited="#onChoiceBoxTipoContaAction" onInputMethodTextChanged="#onChoiceBoxTipoContaAction" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="DPDataCadastro" prefHeight="25.0" prefWidth="170.0" promptText="Data que cadastrou neste programa" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ChoiceBox fx:id="choiceBoxTipoConta" onDragDetected="#onChoiceBoxTipoContaAction" onDragDone="#onChoiceBoxTipoContaAction" onDragDropped="#onChoiceBoxTipoContaAction" onDragEntered="#onChoiceBoxTipoContaAction" onDragExited="#onChoiceBoxTipoContaAction" onInputMethodTextChanged="#onChoiceBoxTipoContaAction" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
