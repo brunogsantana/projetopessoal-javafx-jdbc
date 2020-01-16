@@ -14,25 +14,24 @@ CREATE TABLE conta (
   PRIMARY KEY (Id)
 );
 
-CREATE TABLE seller (
+CREATE TABLE receita (
   Id int(11) NOT NULL AUTO_INCREMENT,
-  Name varchar(60) DEFAULT NULL,
-  Email varchar(100) DEFAULT NULL,
-  BirthDate datetime(6) DEFAULT NULL,
-  BaseSalary double DEFAULT NULL,
+  DataOriginalReceita datetime(6) DEFAULT NULL,
+  DataConcluidaReceita datetime(6) DEFAULT NULL,
+  Descricao varchar(60) DEFAULT NULL,
+  CodigoCategoriaReceita int(11) DEFAULT NULL,
+  CategoriaReceita varchar(60) DEFAULT NULL,
+  StatusReceita varchar(60) DEFAULT NULL,
+  Valor double DEFAULT NULL,
+  Obs varchar(60) DEFAULT NULL,
   ContaId int(11) DEFAULT NULL,
   PRIMARY KEY (Id),
-  FOREIGN KEY (ContaId) REFERENCES conta (id)
+  FOREIGN KEY (ContaId) REFERENCES conta (Id)
 );
 
 INSERT INTO conta (Name, CPF, TipoConta, Banco, NumeroBanco, NumeroAgencia, NumeroConta, DataCadastro, SaldoInicial, SaldoAtual, Favorita) VALUES 
   ('Bruno Santana', "02268984583", "Poupanca", "Banco do Brasil", 001, 1603, 420050, '1998-04-21 00:00:00', 100.0, 2000.0, 0),
   ('Fernanda Santana', "06167986606", "ContaCorrente", "Banco do Brasil", 001, 1603, 420050, '1988-01-15 00:00:00', 100.0, 2000.0, 0);
 
-INSERT INTO seller (Name, Email, BirthDate, BaseSalary, ContaId) VALUES 
-  ('Bob Brown','bob@gmail.com','1998-04-21 00:00:00',1000,1),
-  ('Maria Green','maria@gmcontaail.com','1979-12-31 00:00:00',3500,2),
-  ('Alex Grey','alex@gmail.com','1988-01-15 00:00:00',2200,1),
-  ('Martha Red','martha@gmail.com','1993-11-30 00:00:00',3000,4),
-  ('Donald Blue','donald@gmail.com','2000-01-09 00:00:00',4000,3),
-  ('Alex Pink','bob@gmail.com','1997-03-04 00:00:00',3000,2);
+INSERT INTO receita (DataOriginalReceita, DataConcluidaReceita, Descricao, CodigoCategoriaReceita, CategoriaReceita, StatusReceita, Valor, Obs, ContaId) VALUES 
+  ('1998-04-21 00:00:00','2018-04-21 00:00:00','teste',1,'salario','recebido',1000,'nada',1);

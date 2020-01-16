@@ -20,30 +20,31 @@ import model.entities.Receita;
 public class ReceitaDaoJDBC implements ReceitaDao {
 
 	private Connection conn;
-	
+
 	public ReceitaDaoJDBC(Connection conn) {
 		this.conn = conn;
 	}
-	
+
 	@Override
 	public void insert(Receita obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement(
-					"INSERT INTO seller "
-					+ "(Name, Email, BirthDate, BaseSalary, ContaId) "
-					+ "VALUES "
-					+ "(?, ?, ?, ?, ?)",
-					Statement.RETURN_GENERATED_KEYS);
-			
-			st.setString(1, obj.getName());
-			st.setString(2, obj.getEmail());
-			st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
-			st.setDouble(4, obj.getBaseSalary());
-			st.setInt(5, obj.getConta().getId());
-			
+			st = conn.prepareStatement("INSERT INTO receita "
+					+ "(DataOriginalReceita, DataConcluidaReceita, Descricao, CodigoCategoriaReceita, CategoriaReceita, StatusReceita, Valor, Obs, ContaId) "
+					+ "VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
+			st.setDate(1, new java.sql.Date(obj.getDataOriginalReceita().getTime()));
+			st.setDate(2, new java.sql.Date(obj.getDataConcluidaReceita().getTime()));
+			st.setString(3, obj.getDescricao());
+			st.setInt(4, obj.getCodigoCategoriaReceita());
+			st.setString(5, obj.getCategoriaReceita());
+			st.setString(6, obj.getStatusReceita());
+			st.setDouble(7, obj.getValor());
+			st.setString(8, obj.getObs());
+			st.setInt(9, obj.getConta().getId());
+
 			int rowsAffected = st.executeUpdate();
-			
+
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs.next()) {
@@ -51,15 +52,12 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 					obj.setId(id);
 				}
 				DB.closeResultSet(rs);
-			}
-			else {
+			} else {
 				throw new DbException("Unexpected error! No rows affected!");
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
 	}
@@ -68,24 +66,25 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 	public void update(Receita obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement(
-					"UPDATE seller "
-					+ "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, ContaId = ? "
+			st = conn.prepareStatement("UPDATE receita "
+					+ "SET DataOriginalReceita = ?, DataConcluidaReceita = ?, Descricao = ?, CodigoCategoriaReceita = ?, CategoriaReceita = ?, StatusReceita = ?, Valor = ?, Obs = ?, ContaId = ? "
 					+ "WHERE Id = ?");
-			
-			st.setString(1, obj.getName());
-			st.setString(2, obj.getEmail());
-			st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
-			st.setDouble(4, obj.getBaseSalary());
-			st.setInt(5, obj.getConta().getId());
-			st.setInt(6, obj.getId());
-			
+
+			st.setDate(1, new java.sql.Date(obj.getDataOriginalReceita().getTime()));
+			st.setDate(2, new java.sql.Date(obj.getDataConcluidaReceita().getTime()));
+			st.setString(3, obj.getDescricao());
+			st.setInt(4, obj.getCodigoCategoriaReceita());
+			st.setString(5, obj.getCategoriaReceita());
+			st.setString(6, obj.getStatusReceita());
+			st.setDouble(7, obj.getValor());
+			st.setString(8, obj.getObs());
+			st.setInt(9, obj.getConta().getId());
+			st.setInt(10, obj.getId());
+
 			st.executeUpdate();
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
 	}
@@ -94,16 +93,14 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("DELETE FROM seller WHERE Id = ?");
-			
+			st = conn.prepareStatement("DELETE FROM receita WHERE Id = ?");
+
 			st.setInt(1, id);
-			
+
 			st.executeUpdate();
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
 	}
@@ -113,12 +110,9 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement(
-					"SELECT seller.*,conta.Name as DepName "
-					+ "FROM seller INNER JOIN conta "
-					+ "ON seller.ContaId = conta.Id "
-					+ "WHERE seller.Id = ?");
-			
+			st = conn.prepareStatement("SELECT receita.*,conta.Name as DepName " + "FROM receita INNER JOIN conta "
+					+ "ON receita.ContaId = conta.Id " + "WHERE receita.Id = ?");
+
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
@@ -127,11 +121,9 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 				return obj;
 			}
 			return null;
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
@@ -140,12 +132,17 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 	private Receita instantiateReceita(ResultSet rs, Conta dep) throws SQLException {
 		Receita obj = new Receita();
 		obj.setId(rs.getInt("Id"));
-		obj.setName(rs.getString("Name"));
-		obj.setEmail(rs.getString("Email"));
-		obj.setBaseSalary(rs.getDouble("BaseSalary"));
-		obj.setBirthDate(rs.getDate("BirthDate"));
+		obj.setDataOriginalReceita(rs.getDate("DataOriginalReceita"));
+		obj.setDataConcluidaReceita(rs.getDate("DataConcluidaReceita"));
+		obj.setDescricao(rs.getString("Descricao"));
+		obj.setCodigoCategoriaReceita(rs.getInt("CodigoCategoriaReceita"));
+		obj.setCategoriaReceita(rs.getString("CategoriaReceita"));
+		obj.setStatusReceita(rs.getString("StatusReceita"));
+		obj.setValor(rs.getDouble("Valor"));
+		obj.setObs(rs.getString("Obs"));
 		obj.setConta(dep);
 		return obj;
+
 	}
 
 	private Conta instantiateConta(ResultSet rs) throws SQLException {
@@ -160,35 +157,30 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement(
-					"SELECT seller.*,conta.Name as DepName "
-					+ "FROM seller INNER JOIN conta "
-					+ "ON seller.ContaId = conta.Id "
-					+ "ORDER BY Name");
-			
+			st = conn.prepareStatement("SELECT receita.*,conta.Name as DepName " + "FROM receita INNER JOIN conta "
+					+ "ON receita.ContaId = conta.Id " + "ORDER BY Name");
+
 			rs = st.executeQuery();
-			
+
 			List<Receita> list = new ArrayList<>();
 			Map<Integer, Conta> map = new HashMap<>();
-			
+
 			while (rs.next()) {
-				
+
 				Conta dep = map.get(rs.getInt("ContaId"));
-				
+
 				if (dep == null) {
 					dep = instantiateConta(rs);
 					map.put(rs.getInt("ContaId"), dep);
 				}
-				
+
 				Receita obj = instantiateReceita(rs, dep);
 				list.add(obj);
 			}
 			return list;
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
@@ -199,38 +191,32 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement(
-					"SELECT seller.*,conta.Name as DepName "
-					+ "FROM seller INNER JOIN conta "
-					+ "ON seller.ContaId = conta.Id "
-					+ "WHERE ContaId = ? "
-					+ "ORDER BY Name");
-			
+			st = conn.prepareStatement("SELECT receita.*,conta.Name as DepName " + "FROM receita INNER JOIN conta "
+					+ "ON receita.ContaId = conta.Id " + "WHERE ContaId = ? " + "ORDER BY Name");
+
 			st.setInt(1, conta.getId());
-			
+
 			rs = st.executeQuery();
-			
+
 			List<Receita> list = new ArrayList<>();
 			Map<Integer, Conta> map = new HashMap<>();
-			
+
 			while (rs.next()) {
-				
+
 				Conta dep = map.get(rs.getInt("ContaId"));
-				
+
 				if (dep == null) {
 					dep = instantiateConta(rs);
 					map.put(rs.getInt("ContaId"), dep);
 				}
-				
+
 				Receita obj = instantiateReceita(rs, dep);
 				list.add(obj);
 			}
 			return list;
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}

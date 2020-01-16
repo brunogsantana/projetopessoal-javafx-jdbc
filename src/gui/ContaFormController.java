@@ -1,7 +1,6 @@
 package gui;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import db.DbException;
-import db.DbIntegrityException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
@@ -258,6 +256,7 @@ public class ContaFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtName, 30);
 		Constraints.setTextFieldMaxLength(txtCpf, 11);
+		Constraints.setTextFieldInteger(txtCpf);
 		Constraints.setTextFieldMaxLength(txtBanco, 30);
 		Constraints.setTextFieldInteger(txtNumeroBanco);
 		Constraints.setTextFieldMaxLength(txtNumeroBanco, 3);
