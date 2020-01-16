@@ -1,6 +1,6 @@
 package model.entities.enums;
 
-public enum TipoLancamento {
+public enum TipoReceita {
 	
 	CONTA_DINHEIRO ("Conta Dinheiro"),
 	CONTA_INVESTIMENTO ("Conta Investimento"),
@@ -9,7 +9,7 @@ public enum TipoLancamento {
 
 	private final String tipoConta;
 
-	TipoLancamento(String tipoConta) {
+	TipoReceita(String tipoConta) {
 		this.tipoConta = tipoConta;
 	}
 	

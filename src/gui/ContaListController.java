@@ -114,8 +114,11 @@ public class ContaListController implements Initializable, DataChangeListener {
 		tableColumnNumeroConta.setCellValueFactory(new PropertyValueFactory<>("numeroConta"));
 		tableColumnNumeroAgencia.setCellValueFactory(new PropertyValueFactory<>("numeroAgencia"));
 		tableColumnDataCadastro.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
+		Utils.formatTableColumnDate(tableColumnDataCadastro, "dd/MM/yyyy");
 		tableColumnSaldoInicial.setCellValueFactory(new PropertyValueFactory<>("saldoInicial"));
+		Utils.formatTableColumnDouble(tableColumnSaldoInicial, 2);
 		tableColumnSaldoAtual.setCellValueFactory(new PropertyValueFactory<>("saldoAtual"));
+		Utils.formatTableColumnDouble(tableColumnSaldoAtual, 2);
 		tableColumnFavorita.setCellValueFactory(new PropertyValueFactory<>("favorita"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();

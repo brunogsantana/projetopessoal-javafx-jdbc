@@ -43,7 +43,7 @@
                                  </children></AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">
                                  <children>
-                                    <Label fx:id="labelLancamentos" onMouseClicked="#onLabelLancamentosClick" text="Lancamentos" />
+                                    <Label fx:id="labelReceitas" onMouseClicked="#onLabelReceitasClick" text="Receitas" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">
@@ -125,7 +125,7 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">
                                  <children>
-                                    <Label fx:id="labelImportarLancamentos" onMouseClicked="#onLabelImportarLancamentosClick" text="Importar lancamentos" />
+                                    <Label fx:id="labelImportarReceitas" onMouseClicked="#onLabelImportarReceitasClick" text="Importar lancamentos" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">

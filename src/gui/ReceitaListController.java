@@ -25,72 +25,62 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.entities.Lancamento;
-import model.entities.enums.TipoLancamento;
-import model.services.LancamentoService;
+import model.entities.Receita;
+import model.services.ReceitaService;
 
-public class LancamentoListController implements Initializable, DataChangeListener {
+public class ReceitaListController implements Initializable, DataChangeListener {
 
-	private LancamentoService service;
-
-	@FXML
-	private TableView<Lancamento> tableViewLancamento;
+	private ReceitaService service;
 
 	@FXML
-	private TableColumn<Lancamento, Integer> tableColumnId;
+	private TableView<Receita> tableViewReceita;
 
 	@FXML
-	private TableColumn<Lancamento, String> tableColumnName;
-
-	@FXML
-	private TableColumn<Lancamento, Integer> tableColumnCPF;
-
-	@FXML
-	private TableColumn<Lancamento, TipoLancamento> tableColumnTipoLancamento;
-
-	@FXML
-	private TableColumn<Lancamento, String> tableColumnBanco;
-
-	@FXML
-	private TableColumn<Lancamento, Integer> tableColumnNumeroBanco;
-
-	@FXML
-	private TableColumn<Lancamento, Integer> tableColumnNumeroLancamento;
-
-	@FXML
-	private TableColumn<Lancamento, Integer> tableColumnNumeroAgencia;
-
-	@FXML
-	private TableColumn<Lancamento, Date> tableColumnDataCadastro;
-
-	@FXML
-	private TableColumn<Lancamento, Double> tableColumnSaldoAtual;
+	private TableColumn<Receita, Integer> tableColumnId;
 	
 	@FXML
-	private TableColumn<Lancamento, Double> tableColumnSaldoInicial;
+	private TableColumn<Receita, Date> tableColumnDataOriginalReceita;
 
 	@FXML
-	private TableColumn<Lancamento, Boolean> tableColumnFavorita;
+	private TableColumn<Receita, Date> tableColumnDataConcluidaReceita;
+	
+	@FXML
+	private TableColumn<Receita, String> tableColumnDescricao;
+	
+	@FXML
+	private TableColumn<Receita, Integer> tableColumnCodigoCategoriaReceita;
+	
+	@FXML
+	private TableColumn<Receita, String> tableColumnCategoriaReceita;
+	
+	@FXML
+	private TableColumn<Receita, String> tableColumnStatusReceita;
 
 	@FXML
-	private TableColumn<Lancamento, Lancamento> tableColumnEDIT;
+	private TableColumn<Receita, Double> tableColumnValor;
+	
+	@FXML
+	private TableColumn<Receita, String> tableColumnObs;
+	
+	@FXML
+	private TableColumn<Receita, Receita> tableColumnEDIT;
 
 	@FXML
-	private TableColumn<Lancamento, Lancamento> tableColumnREMOVE;
+	private TableColumn<Receita, Receita> tableColumnREMOVE;
 
 	@FXML
 	private Button btNew;
 
-	private ObservableList<Lancamento> obsList;
+	private ObservableList<Receita> obsList;
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		Lancamento obj = new Lancamento();
-		createDialogForm(obj, "/gui/LancamentoForm.fxml", parentStage);
+		Receita obj = new Receita();
+		createDialogForm(obj, "/gui/ReceitaForm.fxml", parentStage);
 	}
 
-	public void setLancamentoService(LancamentoService service) {
+	public void setReceitaService(ReceitaService service) {
 		this.service = service;
 	}
 
@@ -101,46 +91,46 @@ public class LancamentoListController implements Initializable, DataChangeListen
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		tableColumnCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-		tableColumnTipoLancamento.setCellValueFactory(new PropertyValueFactory<>("tipoLancamento"));
-		tableColumnBanco.setCellValueFactory(new PropertyValueFactory<>("banco"));
-		tableColumnNumeroBanco.setCellValueFactory(new PropertyValueFactory<>("numeroBanco"));
-		tableColumnNumeroLancamento.setCellValueFactory(new PropertyValueFactory<>("numeroLancamento"));
-		tableColumnNumeroAgencia.setCellValueFactory(new PropertyValueFactory<>("numeroAgencia"));
-		tableColumnDataCadastro.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
-		tableColumnSaldoInicial.setCellValueFactory(new PropertyValueFactory<>("saldoInicial"));
-		tableColumnSaldoAtual.setCellValueFactory(new PropertyValueFactory<>("saldoAtual"));
-		tableColumnFavorita.setCellValueFactory(new PropertyValueFactory<>("favorita"));
-
+		tableColumnDataOriginalReceita.setCellValueFactory(new PropertyValueFactory<>("dataOriginalReceita"));
+		Utils.formatTableColumnDate(tableColumnDataOriginalReceita, "dd/MM/yyyy");
+		tableColumnDataConcluidaReceita.setCellValueFactory(new PropertyValueFactory<>("dataConcluidaReceita"));
+		Utils.formatTableColumnDate(tableColumnDataConcluidaReceita, "dd/MM/yyyy");
+		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+		tableColumnCodigoCategoriaReceita.setCellValueFactory(new PropertyValueFactory<>("codigoCategoriaReceita"));
+		tableColumnCategoriaReceita.setCellValueFactory(new PropertyValueFactory<>("categoriaReceita"));
+		tableColumnStatusReceita.setCellValueFactory(new PropertyValueFactory<>("statusReceita"));
+		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+		Utils.formatTableColumnDouble(tableColumnValor, 2);
+		tableColumnObs.setCellValueFactory(new PropertyValueFactory<>("obs"));
+		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewLancamento.prefHeightProperty().bind(stage.heightProperty());
+		tableViewReceita.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<Lancamento> list = service.findAll();
+		List<Receita> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewLancamento.setItems(obsList);
+		tableViewReceita.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
 	}
 
-	private void createDialogForm(Lancamento obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(Receita obj, String absoluteName, Stage parentStage) {
 //		try {
 //			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 //			Pane pane = loader.load();
 //
-//			LancamentoFormController controller = loader.getController();
-//			controller.setLancamento(obj);
-//			controller.setLancamentoService(new LancamentoService());
+//			ReceitaFormController controller = loader.getController();
+//			controller.setReceita(obj);
+//			controller.setReceitaService(new ReceitaService());
 //			controller.subscribeDataChangeListener(this);
 //			controller.updateFormData();
 //
 //			Stage dialogStage = new Stage();
-//			dialogStage.setTitle("Adicionar Lancamento");
+//			dialogStage.setTitle("Adicionar Receita");
 //			dialogStage.setScene(new Scene(pane));
 //			dialogStage.setResizable(false);
 //			dialogStage.initOwner(parentStage);
@@ -159,11 +149,11 @@ public class LancamentoListController implements Initializable, DataChangeListen
 
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEDIT.setCellFactory(param -> new TableCell<Lancamento, Lancamento>() {
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Receita, Receita>() {
 			private final Button button = new Button("edit");
 
 			@Override
-			protected void updateItem(Lancamento obj, boolean empty) {
+			protected void updateItem(Receita obj, boolean empty) {
 				super.updateItem(obj, empty);
 
 				if (obj == null) {
@@ -172,18 +162,18 @@ public class LancamentoListController implements Initializable, DataChangeListen
 				}
 
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/LancamentoForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/ReceitaForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
 
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnREMOVE.setCellFactory(param -> new TableCell<Lancamento, Lancamento>() {
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<Receita, Receita>() {
 			private final Button button = new Button("remove");
 
 			@Override
-			protected void updateItem(Lancamento obj, boolean empty) {
+			protected void updateItem(Receita obj, boolean empty) {
 				super.updateItem(obj, empty);
 
 				if (obj == null) {
@@ -197,7 +187,7 @@ public class LancamentoListController implements Initializable, DataChangeListen
 		});
 	}
 
-	private void removeEntity(Lancamento obj) {
+	private void removeEntity(Receita obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 
 		if (result.get() == ButtonType.OK) {

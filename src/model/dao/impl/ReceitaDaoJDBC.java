@@ -13,20 +13,20 @@ import com.mysql.jdbc.Statement;
 
 import db.DB;
 import db.DbException;
-import model.dao.LancamentoDao;
+import model.dao.ReceitaDao;
 import model.entities.Conta;
-import model.entities.Lancamento;
+import model.entities.Receita;
 
-public class LancamentoDaoJDBC implements LancamentoDao {
+public class ReceitaDaoJDBC implements ReceitaDao {
 
 	private Connection conn;
 	
-	public LancamentoDaoJDBC(Connection conn) {
+	public ReceitaDaoJDBC(Connection conn) {
 		this.conn = conn;
 	}
 	
 	@Override
-	public void insert(Lancamento obj) {
+	public void insert(Receita obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
@@ -65,7 +65,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 	}
 
 	@Override
-	public void update(Lancamento obj) {
+	public void update(Receita obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
@@ -109,7 +109,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 	}
 
 	@Override
-	public Lancamento findById(Integer id) {
+	public Receita findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -123,7 +123,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Conta dep = instantiateConta(rs);
-				Lancamento obj = instantiateLancamento(rs, dep);
+				Receita obj = instantiateReceita(rs, dep);
 				return obj;
 			}
 			return null;
@@ -137,8 +137,8 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 		}
 	}
 
-	private Lancamento instantiateLancamento(ResultSet rs, Conta dep) throws SQLException {
-		Lancamento obj = new Lancamento();
+	private Receita instantiateReceita(ResultSet rs, Conta dep) throws SQLException {
+		Receita obj = new Receita();
 		obj.setId(rs.getInt("Id"));
 		obj.setName(rs.getString("Name"));
 		obj.setEmail(rs.getString("Email"));
@@ -156,7 +156,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 	}
 
 	@Override
-	public List<Lancamento> findAll() {
+	public List<Receita> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -168,7 +168,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 			
 			rs = st.executeQuery();
 			
-			List<Lancamento> list = new ArrayList<>();
+			List<Receita> list = new ArrayList<>();
 			Map<Integer, Conta> map = new HashMap<>();
 			
 			while (rs.next()) {
@@ -180,7 +180,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 					map.put(rs.getInt("ContaId"), dep);
 				}
 				
-				Lancamento obj = instantiateLancamento(rs, dep);
+				Receita obj = instantiateReceita(rs, dep);
 				list.add(obj);
 			}
 			return list;
@@ -195,7 +195,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 	}
 
 	@Override
-	public List<Lancamento> findByConta(Conta conta) {
+	public List<Receita> findByConta(Conta conta) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -210,7 +210,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 			
 			rs = st.executeQuery();
 			
-			List<Lancamento> list = new ArrayList<>();
+			List<Receita> list = new ArrayList<>();
 			Map<Integer, Conta> map = new HashMap<>();
 			
 			while (rs.next()) {
@@ -222,7 +222,7 @@ public class LancamentoDaoJDBC implements LancamentoDao {
 					map.put(rs.getInt("ContaId"), dep);
 				}
 				
-				Lancamento obj = instantiateLancamento(rs, dep);
+				Receita obj = instantiateReceita(rs, dep);
 				list.add(obj);
 			}
 			return list;

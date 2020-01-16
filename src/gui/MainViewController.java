@@ -18,7 +18,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.ContaService;
-import model.services.LancamentoService;
+import model.services.ReceitaService;
 
 public class MainViewController implements Initializable {
 
@@ -32,7 +32,7 @@ public class MainViewController implements Initializable {
 	private Label labelMovimentacaoCaixa;
 
 	@FXML
-	private Label labelLancamentos;
+	private Label labelReceitas;
 
 	@FXML
 	private Label labelFluxo;
@@ -80,7 +80,7 @@ public class MainViewController implements Initializable {
 	private Label labelRegrasDePreenchimento;
 
 	@FXML
-	private Label labelImportarLancamentos;
+	private Label labelImportarReceitas;
 
 	@FXML
 	private Label labelFechamentoPosicao;
@@ -104,9 +104,9 @@ public class MainViewController implements Initializable {
 	}
 
 	@FXML
-	public void onLabelLancamentosClick() {
-		loadView("/gui/LancamentoList.fxml", (LancamentoListController controller) -> {
-			controller.setLancamentoService(new LancamentoService());
+	public void onLabelReceitasClick() {
+		loadView("/gui/ReceitaList.fxml", (ReceitaListController controller) -> {
+			controller.setReceitaService(new ReceitaService());
 			controller.updateTableView();
 
 		});
@@ -192,7 +192,7 @@ public class MainViewController implements Initializable {
 	}
 
 	@FXML
-	public void onLabelImportarLancamentosClick() {
+	public void onLabelImportarReceitasClick() {
 
 	}
 
