@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -23,11 +24,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
+import model.entities.Conta;
 import model.entities.Receita;
 import model.exceptions.ValidationException;
+import model.services.ContaService;
 import model.services.ReceitaService;
 
 public class ReceitaFormController implements Initializable {
@@ -35,6 +42,8 @@ public class ReceitaFormController implements Initializable {
 	private Receita entity;
 
 	private ReceitaService service;
+
+	private ContaService contaService;
 
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
@@ -69,6 +78,9 @@ public class ReceitaFormController implements Initializable {
 	private TextField txtObs;
 
 	@FXML
+	private ComboBox<Conta> comboBoxConta;
+
+	@FXML
 	private Label labelErrorId;
 
 	@FXML
@@ -101,12 +113,15 @@ public class ReceitaFormController implements Initializable {
 	@FXML
 	private Button btCancel;
 
+	private ObservableList<Conta> obsList;
+
 	public void setReceita(Receita entity) {
 		this.entity = entity;
 	}
 
-	public void setReceitaService(ReceitaService service) {
+	public void setServices(ReceitaService service, ContaService contaService) {
 		this.service = service;
+		this.contaService = contaService;
 	}
 
 	public void subscribeDataChangeListener(DataChangeListener listener) {
@@ -218,6 +233,7 @@ public class ReceitaFormController implements Initializable {
 		Constraints.setTextFieldDouble(txtValor);
 		choiceBoxStatusReceita.setItems(choiceBoxStatus);
 		choiceBoxCategoriaReceita.setItems(choiceBoxCategoria);
+		initializeComboBoxConta();
 
 	}
 
@@ -252,9 +268,25 @@ public class ReceitaFormController implements Initializable {
 			choiceBoxStatusReceita.setValue(entity.getStatusReceita());
 		}
 
-		txtValor.setText(String.format("%.2f",entity.getValor()));
+		Locale.setDefault(Locale.US);
+		txtValor.setText(String.format("%.2f", entity.getValor()));
 //		txtValor.setText(String.valueOf(entity.getValor()));
 		txtObs.setText(entity.getObs());
+		
+		if (entity.getConta()==null) {
+			comboBoxConta.getSelectionModel().selectFirst();
+		}
+		comboBoxConta.setValue(entity.getConta());
+
+	}
+
+	public void loadAssociatedObjects() {
+		if (contaService == null) {
+			throw new IllegalStateException("ContaService was null");
+		}
+		List<Conta> list = contaService.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		comboBoxConta.setItems(obsList);
 
 	}
 
@@ -285,6 +317,18 @@ public class ReceitaFormController implements Initializable {
 		if (fields.contains("obs")) {
 			labelErrorObs.setText(errors.get("obs"));
 		}
+	}
 
+	private void initializeComboBoxConta() {
+		Callback<ListView<Conta>, ListCell<Conta>> factory = lv -> new ListCell<Conta>() {
+			@Override
+			protected void updateItem(Conta item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getName());
+			}
+		};
+
+		comboBoxConta.setCellFactory(factory);
+		comboBoxConta.setButtonCell(factory.call(null));
 	}
 }

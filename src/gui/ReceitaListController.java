@@ -31,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Receita;
+import model.services.ContaService;
 import model.services.ReceitaService;
 
 public class ReceitaListController implements Initializable, DataChangeListener {
@@ -42,31 +43,31 @@ public class ReceitaListController implements Initializable, DataChangeListener 
 
 	@FXML
 	private TableColumn<Receita, Integer> tableColumnId;
-	
+
 	@FXML
 	private TableColumn<Receita, Date> tableColumnDataOriginalReceita;
 
 	@FXML
 	private TableColumn<Receita, Date> tableColumnDataConcluidaReceita;
-	
+
 	@FXML
 	private TableColumn<Receita, String> tableColumnDescricao;
-	
+
 	@FXML
 	private TableColumn<Receita, Integer> tableColumnCodigoCategoriaReceita;
-	
+
 	@FXML
 	private TableColumn<Receita, String> tableColumnCategoriaReceita;
-	
+
 	@FXML
 	private TableColumn<Receita, String> tableColumnStatusReceita;
 
 	@FXML
 	private TableColumn<Receita, Double> tableColumnValor;
-	
+
 	@FXML
 	private TableColumn<Receita, String> tableColumnObs;
-	
+
 	@FXML
 	private TableColumn<Receita, Receita> tableColumnEDIT;
 
@@ -107,7 +108,7 @@ public class ReceitaListController implements Initializable, DataChangeListener 
 		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
 		Utils.formatTableColumnDouble(tableColumnValor, 2);
 		tableColumnObs.setCellValueFactory(new PropertyValueFactory<>("obs"));
-		
+
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewReceita.prefHeightProperty().bind(stage.heightProperty());
 	}
@@ -130,7 +131,8 @@ public class ReceitaListController implements Initializable, DataChangeListener 
 
 			ReceitaFormController controller = loader.getController();
 			controller.setReceita(obj);
-			controller.setReceitaService(new ReceitaService());
+			controller.setServices(new ReceitaService(), new ContaService());
+			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
