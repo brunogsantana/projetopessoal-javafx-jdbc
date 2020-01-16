@@ -132,8 +132,10 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 	private Receita instantiateReceita(ResultSet rs, Conta dep) throws SQLException {
 		Receita obj = new Receita();
 		obj.setId(rs.getInt("Id"));
-		obj.setDataOriginalReceita(rs.getDate("DataOriginalReceita"));
-		obj.setDataConcluidaReceita(rs.getDate("DataConcluidaReceita"));
+//		obj.setDataOriginalReceita(rs.getDate("DataOriginalReceita"));
+//		obj.setDataConcluidaReceita(rs.getDate("DataConcluidaReceita"));
+		obj.setDataOriginalReceita(new java.util.Date(rs.getTimestamp("DataOriginalReceita").getTime()));
+		obj.setDataConcluidaReceita(new java.util.Date(rs.getTimestamp("DataConcluidaReceita").getTime()));
 		obj.setDescricao(rs.getString("Descricao"));
 		obj.setCodigoCategoriaReceita(rs.getInt("CodigoCategoriaReceita"));
 		obj.setCategoriaReceita(rs.getString("CategoriaReceita"));
@@ -142,7 +144,6 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		obj.setObs(rs.getString("Obs"));
 		obj.setConta(dep);
 		return obj;
-
 	}
 
 	private Conta instantiateConta(ResultSet rs) throws SQLException {

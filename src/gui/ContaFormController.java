@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -290,9 +291,12 @@ public class ContaFormController implements Initializable {
 			Instant instant = new java.util.Date(entity.getDataCadastro().getTime()).toInstant();
 			DPDataCadastro.setValue(instant.atZone(ZoneId.systemDefault()).toLocalDate());
 		}
-
-		txtSaldoInicial.setText(String.valueOf(entity.getSaldoInicial()));
-		txtSaldoAtual.setText(String.valueOf(entity.getSaldoAtual()));
+		
+		Locale.setDefault(Locale.US);
+		txtSaldoInicial.setText(String.format("%.2f",entity.getSaldoInicial()));
+		txtSaldoAtual.setText(String.format("%.2f",entity.getSaldoAtual()));
+//		txtSaldoInicial.setText(String.valueOf(entity.getSaldoInicial()));
+//		txtSaldoAtual.setText(String.valueOf(entity.getSaldoAtual()));
 
 			if ("true".equals(String.valueOf(entity.getFavorita()))) {
 				checkBoxFavorita.setSelected(true);

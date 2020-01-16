@@ -252,7 +252,8 @@ public class ReceitaFormController implements Initializable {
 			choiceBoxStatusReceita.setValue(entity.getStatusReceita());
 		}
 
-		txtValor.setText(String.valueOf(entity.getValor()));
+		txtValor.setText(String.format("%.2f",entity.getValor()));
+//		txtValor.setText(String.valueOf(entity.getValor()));
 		txtObs.setText(entity.getObs());
 
 	}
