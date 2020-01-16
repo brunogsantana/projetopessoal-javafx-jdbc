@@ -3,7 +3,7 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Seller implements Serializable {
+public class Lancamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -13,18 +13,18 @@ public class Seller implements Serializable {
 	private Date birthDate;
 	private Double baseSalary;
 	
-	private Department department;
+	private Conta conta;
 	
-	public Seller() {
+	public Lancamento() {
 	}
 
-	public Seller(Integer id, String name, String email, Date birthDate, Double baseSalary, Department department) {
+	public Lancamento(Integer id, String name, String email, Date birthDate, Double baseSalary, Conta conta) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.birthDate = birthDate;
 		this.baseSalary = baseSalary;
-		this.department = department;
+		this.conta = conta;
 	}
 
 	public Integer getId() {
@@ -67,12 +67,12 @@ public class Seller implements Serializable {
 		this.baseSalary = baseSalary;
 	}
 
-	public Department getDepartment() {
-		return department;
+	public Conta getConta() {
+		return conta;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class Seller implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Seller other = (Seller) obj;
+		Lancamento other = (Lancamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -102,7 +102,7 @@ public class Seller implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Seller [id=" + id + ", name=" + name + ", email=" + email + ", birthDate=" + birthDate + ", baseSalary="
-				+ baseSalary + ", department=" + department + "]";
+		return "Lancamento [id=" + id + ", name=" + name + ", email=" + email + ", birthDate=" + birthDate + ", baseSalary="
+				+ baseSalary + ", conta=" + conta + "]";
 	}
 }

@@ -2,12 +2,12 @@ package model.dao;
 
 import db.DB;
 import model.dao.impl.ContaDaoJDBC;
-import model.dao.impl.SellerDaoJDBC;
+import model.dao.impl.LancamentoDaoJDBC;
 
 public class DaoFactory {
 
-	public static SellerDao createSellerDao() {
-		return new SellerDaoJDBC(DB.getConnection());
+	public static LancamentoDao createLancamentoDao() {
+		return new LancamentoDaoJDBC(DB.getConnection());
 	}
 	
 	public static ContaDao createContaDao(){
