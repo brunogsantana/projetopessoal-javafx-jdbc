@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -62,7 +62,7 @@
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
-            <ChoiceBox fx:id="choiceBoxTipoConta" onDragDetected="#onChoiceBoxTipoContaAction" onDragDone="#onChoiceBoxTipoContaAction" onDragDropped="#onChoiceBoxTipoContaAction" onDragEntered="#onChoiceBoxTipoContaAction" onDragExited="#onChoiceBoxTipoContaAction" onInputMethodTextChanged="#onChoiceBoxTipoContaAction" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="comboBoxTipoConta" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtBanco" promptText="Nome do banco" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="System Italic" size="12.0" />

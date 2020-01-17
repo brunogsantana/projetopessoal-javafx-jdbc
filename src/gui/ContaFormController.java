@@ -24,7 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -40,7 +40,7 @@ public class ContaFormController implements Initializable {
 
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
-	ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Conta Corrente", "Conta Investimento",
+	ObservableList<String> comboBoxList = FXCollections.observableArrayList("Conta Corrente", "Conta Investimento",
 			"Conta Dinheiro", "Conta Empresarial");
 
 	@FXML
@@ -53,7 +53,7 @@ public class ContaFormController implements Initializable {
 	private TextField txtCpf;
 
 	@FXML
-	private ChoiceBox<String> choiceBoxTipoConta;
+	private ComboBox<String> comboBoxTipoConta;
 
 	@FXML
 	private TextField txtBanco;
@@ -170,10 +170,10 @@ public class ContaFormController implements Initializable {
 		}
 		obj.setCpf(txtCpf.getText());
 
-		if (choiceBoxTipoConta.getValue() == null || choiceBoxTipoConta.getValue().trim().equals("")) {
+		if (comboBoxTipoConta.getValue() == null || comboBoxTipoConta.getValue().trim().equals("")) {
 			exception.addError("tipoConta", "Field can't be empty");
 		}
-		obj.setTipoConta(choiceBoxTipoConta.getValue());
+		obj.setTipoConta(comboBoxTipoConta.getValue());
 
 		if (txtBanco.getText() == null || txtBanco.getText().trim().equals("")) {
 			exception.addError("banco", "Field can't be empty");
@@ -233,8 +233,8 @@ public class ContaFormController implements Initializable {
 	}
 
 	@FXML
-	private void onChoiceBoxTipoContaAction() {
-		System.out.println("onChoiceBoxTipoContaAction");
+	private void onComboBoxTipoContaAction() {
+		System.out.println("onComboBoxTipoContaAction");
 	}
 
 	@FXML
@@ -266,7 +266,7 @@ public class ContaFormController implements Initializable {
 		// Constraints.setTextFieldtoDate(DPDataCadastro);
 		Constraints.setTextFieldDouble(txtSaldoAtual);
 		Constraints.setTextFieldDouble(txtSaldoInicial);
-		choiceBoxTipoConta.setItems(choiceBoxList);
+		comboBoxTipoConta.setItems(comboBoxList);
 	}
 
 	public void updateFormData() {
@@ -277,9 +277,9 @@ public class ContaFormController implements Initializable {
 		txtName.setText(entity.getName());
 		txtCpf.setText(entity.getCpf());
 		if (entity.getTipoConta() == null) {
-			choiceBoxTipoConta.getSelectionModel().selectFirst();
+			comboBoxTipoConta.getSelectionModel().selectFirst();
 		} else {
-			choiceBoxTipoConta.setValue(entity.getTipoConta());
+			comboBoxTipoConta.setValue(entity.getTipoConta());
 		}
 		txtBanco.setText(entity.getBanco());
 		txtNumeroBanco.setText(String.valueOf(entity.getNumeroBanco()));

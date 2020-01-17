@@ -23,7 +23,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -47,8 +46,8 @@ public class ReceitaFormController implements Initializable {
 
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
-	ObservableList<String> choiceBoxStatus = FXCollections.observableArrayList("Recebido", "A Receber");
-	ObservableList<String> choiceBoxCategoria = FXCollections.observableArrayList("Salario", "Ferias");
+	ObservableList<String> comboBoxStatus = FXCollections.observableArrayList("Recebido", "A Receber");
+	ObservableList<String> comboBoxCategoria = FXCollections.observableArrayList("Salario", "Ferias");
 
 	@FXML
 	private TextField txtId;
@@ -66,10 +65,10 @@ public class ReceitaFormController implements Initializable {
 	private TextField txtCodigoCategoriaReceita;
 
 	@FXML
-	private ChoiceBox<String> choiceBoxCategoriaReceita;
+	private ComboBox<String> comboBoxCategoriaReceita;
 
 	@FXML
-	private ChoiceBox<String> choiceBoxStatusReceita;
+	private ComboBox<String> comboBoxStatusReceita;
 
 	@FXML
 	private TextField txtValor;
@@ -185,15 +184,15 @@ public class ReceitaFormController implements Initializable {
 		}
 		obj.setCodigoCategoriaReceita(Utils.tryParseToInt(txtCodigoCategoriaReceita.getText()));
 
-		if (choiceBoxCategoriaReceita.getValue() == null || choiceBoxCategoriaReceita.getValue().trim().equals("")) {
+		if (comboBoxCategoriaReceita.getValue() == null || comboBoxCategoriaReceita.getValue().trim().equals("")) {
 			exception.addError("categoriaReceita", "Field can't be empty");
 		}
-		obj.setCategoriaReceita(choiceBoxCategoriaReceita.getValue());
+		obj.setCategoriaReceita(comboBoxCategoriaReceita.getValue());
 
-		if (choiceBoxStatusReceita.getValue() == null || choiceBoxStatusReceita.getValue().trim().equals("")) {
+		if (comboBoxStatusReceita.getValue() == null || comboBoxStatusReceita.getValue().trim().equals("")) {
 			exception.addError("statusReceita", "Field can't be empty");
 		}
-		obj.setStatusReceita(choiceBoxStatusReceita.getValue());
+		obj.setStatusReceita(comboBoxStatusReceita.getValue());
 
 		if (txtValor.getText() == null || txtValor.getText().trim().equals("")) {
 			exception.addError("valor", "Field can't be empty");
@@ -232,8 +231,8 @@ public class ReceitaFormController implements Initializable {
 		Utils.formatDatePicker(DPDataOriginalReceita, "dd/MM/yyyy");
 		Utils.formatDatePicker(DPDataConcluidaReceita, "dd/MM/yyyy");
 		Constraints.setTextFieldDouble(txtValor);
-		choiceBoxStatusReceita.setItems(choiceBoxStatus);
-		choiceBoxCategoriaReceita.setItems(choiceBoxCategoria);
+		comboBoxStatusReceita.setItems(comboBoxStatus);
+		comboBoxCategoriaReceita.setItems(comboBoxCategoria);
 		initializeComboBoxConta();
 
 	}
@@ -258,15 +257,15 @@ public class ReceitaFormController implements Initializable {
 		txtCodigoCategoriaReceita.setText(String.valueOf(entity.getCodigoCategoriaReceita()));
 
 		if (entity.getCategoriaReceita() == null) {
-			choiceBoxCategoriaReceita.getSelectionModel().selectFirst();
+			comboBoxCategoriaReceita.getSelectionModel().selectFirst();
 		} else {
-			choiceBoxCategoriaReceita.setValue(entity.getCategoriaReceita());
+			comboBoxCategoriaReceita.setValue(entity.getCategoriaReceita());
 		}
 
 		if (entity.getStatusReceita() == null) {
-			choiceBoxStatusReceita.getSelectionModel().selectFirst();
+			comboBoxStatusReceita.getSelectionModel().selectFirst();
 		} else {
-			choiceBoxStatusReceita.setValue(entity.getStatusReceita());
+			comboBoxStatusReceita.setValue(entity.getStatusReceita());
 		}
 
 		Locale.setDefault(Locale.US);

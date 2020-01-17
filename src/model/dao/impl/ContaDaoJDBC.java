@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import db.DB;
@@ -137,7 +136,6 @@ public class ContaDaoJDBC implements ContaDao {
 			st = conn.prepareStatement("UPDATE Conta "
 					+ "SET Name = ?, CPF = ?, TipoConta = ?, Banco = ?, NumeroBanco = ?, NumeroAgencia = ?, NumeroConta = ?, DataCadastro = ?, SaldoInicial = ?, SaldoAtual = ?, Favorita = ? "
 					+ "WHERE Id = ?");
-
 
 			st.setString(1, obj.getName());
 			st.setString(2, obj.getCpf());

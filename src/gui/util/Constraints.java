@@ -1,8 +1,6 @@
 package gui.util;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import javafx.scene.control.TextField;
