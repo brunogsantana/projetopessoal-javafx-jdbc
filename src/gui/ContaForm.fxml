@@ -40,6 +40,16 @@
          <children>
             <Label text="Id" />
             <Label text="Nome" GridPane.rowIndex="1" />
+            <Label text="CPF" GridPane.rowIndex="2" />
+            <Label text="Tipo da Conta" GridPane.rowIndex="3" />
+            <Label text="Nome do Banco" GridPane.rowIndex="4" />
+            <Label text="Numero do Banco" GridPane.rowIndex="5" />
+            <Label text="Agencia" GridPane.rowIndex="6" />
+            <Label text="Conta" GridPane.rowIndex="7" />
+            <Label text="Data do Cadastro" GridPane.rowIndex="8" />
+            <Label text="Saldo Inicial" GridPane.rowIndex="9" />
+            <Label text="Saldo Atual" GridPane.rowIndex="10" />
+            <Label text="Favorita" GridPane.rowIndex="11" />
             <TextField fx:id="txtId" editable="false" promptText="ID da conta" GridPane.columnIndex="1">
                <font>
                   <Font name="System Italic" size="12.0" />
@@ -48,28 +58,11 @@
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
-            <Label textFill="RED" GridPane.columnIndex="2" />
-            <Label fx:id="labelErrorName" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
-               <children>
-                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
-                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
-               </children>
-            </HBox>
-            <Label text="CPF" GridPane.rowIndex="2" />
-            <Label text="Nome do Banco" GridPane.rowIndex="4" />
-            <Label text="Agencia" GridPane.rowIndex="6" />
-            <Label text="Data do Cadastro" GridPane.rowIndex="8" />
-            <Label text="Saldo Atual" GridPane.rowIndex="10" />
-            <Label text="Tipo da Conta" GridPane.rowIndex="3" />
-            <Label text="Numero do Banco" GridPane.rowIndex="5" />
-            <Label text="Conta" GridPane.rowIndex="7" />
-            <Label text="Saldo Inicial" GridPane.rowIndex="9" />
-            <Label text="Favorita" GridPane.rowIndex="11" />
             <TextField fx:id="txtCpf" promptText="CPF do holder da conta. Max 11 digitos" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
+            <ChoiceBox fx:id="choiceBoxTipoConta" onDragDetected="#onChoiceBoxTipoContaAction" onDragDone="#onChoiceBoxTipoContaAction" onDragDropped="#onChoiceBoxTipoContaAction" onDragEntered="#onChoiceBoxTipoContaAction" onDragExited="#onChoiceBoxTipoContaAction" onInputMethodTextChanged="#onChoiceBoxTipoContaAction" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtBanco" promptText="Nome do banco" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="System Italic" size="12.0" />
@@ -86,6 +79,7 @@
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
+            <DatePicker fx:id="DPDataCadastro" prefHeight="25.0" prefWidth="170.0" promptText="Data que cadastrou neste programa" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="txtSaldoInicial" promptText="Saldo inicial no instante que cadastrou neste programa" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <font>
                   <Font name="System Italic" size="12.0" />
@@ -94,6 +88,22 @@
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
+            <CheckBox fx:id="checkBoxFavorita" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#onCheckBoxFavoritaAction" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="11">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </CheckBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <children>
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
+                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
+               </children>
+            </HBox>
+            <Label textFill="RED" GridPane.columnIndex="2" />
+            <Label fx:id="labelErrorName" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="labelErrorCpf" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorTipoConta" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorBanco" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
@@ -104,16 +114,6 @@
             <Label fx:id="labelErrorSaldoInicial" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="9" />
             <Label fx:id="labelErrorSaldoAtual" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="10" />
             <Label fx:id="labelErrorFavorita" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="11" />
-            <CheckBox fx:id="checkBoxFavorita" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#onCheckBoxFavoritaAction" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="11">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin>
-            </CheckBox>
-            <DatePicker fx:id="DPDataCadastro" prefHeight="25.0" prefWidth="170.0" promptText="Data que cadastrou neste programa" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <ChoiceBox fx:id="choiceBoxTipoConta" onDragDetected="#onChoiceBoxTipoContaAction" onDragDone="#onChoiceBoxTipoContaAction" onDragDropped="#onChoiceBoxTipoContaAction" onDragEntered="#onChoiceBoxTipoContaAction" onDragExited="#onChoiceBoxTipoContaAction" onInputMethodTextChanged="#onChoiceBoxTipoContaAction" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>

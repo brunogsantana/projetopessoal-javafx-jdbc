@@ -37,18 +37,8 @@
          <children>
             <Label text="Id" />
             <Label text="Data" GridPane.rowIndex="1" />
-            <TextField fx:id="txtId" editable="false" promptText="ID da receita" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font></TextField>
             <Label fx:id="labelErrorId" textFill="RED" GridPane.columnIndex="2" />
             <Label fx:id="labelErrorDataOriginalReceita" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
-               <children>
-                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
-                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
-               </children>
-            </HBox>
             <Label text="Data de Conclusao" GridPane.rowIndex="2" />
             <Label text="Codigo da Categoria" GridPane.rowIndex="4" />
             <Label text="Status" GridPane.rowIndex="6" />
@@ -57,7 +47,24 @@
             <Label text="Categoria" GridPane.rowIndex="5" />
             <Label text="Valor" GridPane.rowIndex="7" />
             <Label text="Conta Id" GridPane.rowIndex="9" />
+            <TextField fx:id="txtId" editable="false" promptText="ID da receita" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></TextField>
+            <DatePicker fx:id="DPDataOriginalReceita" prefHeight="25.0" prefWidth="170.0" promptText="Data original da receita" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="DPDataConcluidaReceita" prefHeight="25.0" prefWidth="170.0" promptText="Data de conclusao da receita" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtDescricao" promptText="Descricao da receita" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </TextField>
             <TextField fx:id="txtCodigoCategoriaReceita" promptText="Codigo da categoria" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></TextField>
+            <ChoiceBox fx:id="choiceBoxCategoriaReceita" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="choiceBoxStatusReceita" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtValor" promptText="Valor da receita" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -65,11 +72,14 @@
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
+            <ComboBox fx:id="comboBoxConta" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+               <children>
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
+                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
+               </children>
+            </HBox>
             <Label fx:id="labelErrorDataConcluidaReceita" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="txtValor" promptText="Valor da receita" GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font></TextField>
             <Label fx:id="labelErrorDescricao" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorCodigoCategoriaReceita" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Label fx:id="labelErrorCategoriaReceita" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="5" />
@@ -77,16 +87,6 @@
             <Label fx:id="labelErrorValor" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="7" />
             <Label fx:id="labelErrorObs" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="8" />
             <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <ChoiceBox fx:id="choiceBoxStatusReceita" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <DatePicker fx:id="DPDataOriginalReceita" prefHeight="25.0" prefWidth="170.0" promptText="Data original da receita" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker fx:id="DPDataConcluidaReceita" prefHeight="25.0" prefWidth="170.0" promptText="Data de conclusao da receita" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ChoiceBox fx:id="choiceBoxCategoriaReceita" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="txtDescricao" promptText="Descricao da receita" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </TextField>
-            <ComboBox fx:id="comboBoxConta" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
          </children>
       </GridPane>
    </children>

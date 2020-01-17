@@ -214,7 +214,6 @@ public class ContaFormController implements Initializable {
 		}
 		obj.setSaldoInicial(Utils.tryParseToDouble(txtSaldoInicial.getText()));
 
-		
 		if (checkBoxFavorita.isSelected()) {
 			obj.setFavorita(true);
 		} else {
@@ -291,18 +290,18 @@ public class ContaFormController implements Initializable {
 			Instant instant = new java.util.Date(entity.getDataCadastro().getTime()).toInstant();
 			DPDataCadastro.setValue(instant.atZone(ZoneId.systemDefault()).toLocalDate());
 		}
-		
+
 		Locale.setDefault(Locale.US);
-		txtSaldoInicial.setText(String.format("%.2f",entity.getSaldoInicial()));
-		txtSaldoAtual.setText(String.format("%.2f",entity.getSaldoAtual()));
+		txtSaldoInicial.setText(String.format("%.2f", entity.getSaldoInicial()));
+		txtSaldoAtual.setText(String.format("%.2f", entity.getSaldoAtual()));
 //		txtSaldoInicial.setText(String.valueOf(entity.getSaldoInicial()));
 //		txtSaldoAtual.setText(String.valueOf(entity.getSaldoAtual()));
 
-			if ("true".equals(String.valueOf(entity.getFavorita()))) {
-				checkBoxFavorita.setSelected(true);
-			} else {
-				checkBoxFavorita.setSelected(false);
-			}
+		if ("true".equals(String.valueOf(entity.getFavorita()))) {
+			checkBoxFavorita.setSelected(true);
+		} else {
+			checkBoxFavorita.setSelected(false);
+		}
 
 		// checkBoxFavorita.setText(String.valueOf(entity.getFavorita()));
 	}
@@ -312,33 +311,53 @@ public class ContaFormController implements Initializable {
 
 		if (fields.contains("name")) {
 			labelErrorName.setText(errors.get("name"));
+		} else {
+			labelErrorName.setText("");
 		}
 		if (fields.contains("cpf")) {
 			labelErrorCpf.setText(errors.get("cpf"));
+		} else {
+			labelErrorCpf.setText("");
 		}
 		if (fields.contains("tipoConta")) {
 			labelErrorTipoConta.setText(errors.get("tipoConta"));
+		} else {
+			labelErrorTipoConta.setText("");
 		}
 		if (fields.contains("banco")) {
 			labelErrorBanco.setText(errors.get("banco"));
+		} else {
+			labelErrorBanco.setText("");
 		}
 		if (fields.contains("numeroBanco")) {
 			labelErrorNumeroBanco.setText(errors.get("numeroBanco"));
+		} else {
+			labelErrorNumeroBanco.setText("");
 		}
 		if (fields.contains("numeroAgencia")) {
 			labelErrorNumeroAgencia.setText(errors.get("numeroAgencia"));
+		} else {
+			labelErrorNumeroAgencia.setText("");
 		}
 		if (fields.contains("numeroConta")) {
 			labelErrorNumeroConta.setText(errors.get("numeroConta"));
+		} else {
+			labelErrorNumeroConta.setText("");
 		}
 		if (fields.contains("dataCadastro")) {
 			labelErrorDataCadastro.setText(errors.get("dataCadastro"));
+		} else {
+			labelErrorDataCadastro.setText("");
 		}
 		if (fields.contains("saldoInicial")) {
 			labelErrorSaldoInicial.setText(errors.get("saldoInicial"));
+		} else {
+			labelErrorSaldoInicial.setText("");
 		}
 		if (fields.contains("saldoAtual")) {
 			labelErrorSaldoAtual.setText(errors.get("saldoAtual"));
+		} else {
+			labelErrorSaldoAtual.setText("");
 		}
 
 	}

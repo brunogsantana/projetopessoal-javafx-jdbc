@@ -204,6 +204,7 @@ public class ReceitaFormController implements Initializable {
 			exception.addError("obs", "Field can't be empty");
 		}
 		obj.setObs(txtObs.getText());
+		obj.setConta(comboBoxConta.getValue());
 
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -270,14 +271,13 @@ public class ReceitaFormController implements Initializable {
 
 		Locale.setDefault(Locale.US);
 		txtValor.setText(String.format("%.2f", entity.getValor()));
-//		txtValor.setText(String.valueOf(entity.getValor()));
 		txtObs.setText(entity.getObs());
-		
-		if (entity.getConta()==null) {
-			comboBoxConta.getSelectionModel().selectFirst();
-		}
-		comboBoxConta.setValue(entity.getConta());
 
+		if (entity.getConta() == null) {
+			comboBoxConta.getSelectionModel().selectFirst();
+		} else {
+			comboBoxConta.setValue(entity.getConta());
+		}
 	}
 
 	public void loadAssociatedObjects() {
@@ -295,27 +295,43 @@ public class ReceitaFormController implements Initializable {
 
 		if (fields.contains("dataOriginalReceita")) {
 			labelErrorDataOriginalReceita.setText(errors.get("dataOriginalReceita"));
+		} else {
+			labelErrorDataOriginalReceita.setText("");
 		}
 		if (fields.contains("dataConcluidaReceita")) {
 			labelErrorDataConcluidaReceita.setText(errors.get("dataConcluidaReceita"));
+		} else {
+			labelErrorDataConcluidaReceita.setText("");
 		}
 		if (fields.contains("descricao")) {
 			labelErrorDescricao.setText(errors.get("descricao"));
+		} else {
+			labelErrorDescricao.setText("");
 		}
 		if (fields.contains("codigoCategoriaReceita")) {
 			labelErrorCodigoCategoriaReceita.setText(errors.get("codigoCategoriaReceita"));
+		} else {
+			labelErrorCodigoCategoriaReceita.setText("");
 		}
 		if (fields.contains("categoriaReceita")) {
 			labelErrorCategoriaReceita.setText(errors.get("categoriaReceita"));
+		} else {
+			labelErrorCategoriaReceita.setText("");
 		}
 		if (fields.contains("statusReceita")) {
 			labelErrorStatusReceita.setText(errors.get("statusReceita"));
+		} else {
+			labelErrorStatusReceita.setText("");
 		}
 		if (fields.contains("valor")) {
 			labelErrorValor.setText(errors.get("valor"));
+		} else {
+			labelErrorValor.setText("");
 		}
 		if (fields.contains("obs")) {
 			labelErrorObs.setText(errors.get("obs"));
+		} else {
+			labelErrorObs.setText("");
 		}
 	}
 
