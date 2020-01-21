@@ -14,24 +14,36 @@ CREATE TABLE conta (
   PRIMARY KEY (Id)
 );
 
+CREATE TABLE categoriaReceita (
+  Id int(11) NOT NULL AUTO_INCREMENT,
+  Descricao varchar(100) DEFAULT NULL,
+  CategoriaReceita varchar(100) NOT NULL UNIQUE,
+  PRIMARY KEY (Id)
+);
+
 CREATE TABLE receita (
   Id int(11) NOT NULL AUTO_INCREMENT,
   DataOriginalReceita datetime(6) DEFAULT NULL,
   DataConcluidaReceita datetime(6) DEFAULT NULL,
   Descricao varchar(60) DEFAULT NULL,
-  CodigoCategoriaReceita int(11) DEFAULT NULL,
-  CategoriaReceita varchar(60) DEFAULT NULL,
+  CategoriaReceita varchar(100) DEFAULT NULL,
   StatusReceita varchar(60) DEFAULT NULL,
   Valor double DEFAULT NULL,
   Obs varchar(60) DEFAULT NULL,
   ContaId int(11) DEFAULT NULL,
+  CategoriaId int(11) DEFAULT NULL,
   PRIMARY KEY (Id),
-  FOREIGN KEY (ContaId) REFERENCES conta (Id)
+  FOREIGN KEY (ContaId) REFERENCES conta (Id),
+  FOREIGN KEY (CategoriaId) REFERENCES categoriaReceita (Id),
+  FOREIGN KEY (CategoriaReceita) REFERENCES categoriaReceita (CategoriaReceita)
 );
 
 INSERT INTO conta (Name, CPF, TipoConta, Banco, NumeroBanco, NumeroAgencia, NumeroConta, DataCadastro, SaldoInicial, SaldoAtual, Favorita) VALUES 
   ('Bruno Santana', "02268984583", "Poupanca", "Banco do Brasil", 001, 1603, 420050, '1998-04-21 00:00:00', 100.0, 2000.0, 0),
   ('Fernanda Santana', "06167986606", "ContaCorrente", "Banco do Brasil", 001, 1603, 420050, '1988-01-15 00:00:00', 100.0, 2000.0, 0);
 
-INSERT INTO receita (DataOriginalReceita, DataConcluidaReceita, Descricao, CodigoCategoriaReceita, CategoriaReceita, StatusReceita, Valor, Obs, ContaId) VALUES 
-  ('1998-04-21 00:00:00','2018-04-21 00:00:00','teste',1,'salario','recebido',1000,'nada',1);
+INSERT INTO categoriaReceita (Descricao, CategoriaReceita) VALUES 
+  ('Salario recebido', 'Salario');
+
+INSERT INTO receita (DataOriginalReceita, DataConcluidaReceita, Descricao, CategoriaReceita, StatusReceita, Valor, Obs, ContaId, CategoriaId) VALUES 
+  ('1998-04-21 00:00:00','2018-04-21 00:00:00','teste','Salario','recebido',1000,'nada',1,1);

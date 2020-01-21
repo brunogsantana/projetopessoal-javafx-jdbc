@@ -2,7 +2,6 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -30,71 +29,44 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Conta;
-import model.services.ContaService;
+import model.entities.CategoriaReceita;
+import model.services.CategoriaReceitaService;
 
-public class ContaListController implements Initializable, DataChangeListener {
+public class CategoriaReceitaListController implements Initializable, DataChangeListener {
 
-	private ContaService service;
-
-	@FXML
-	private TableView<Conta> tableViewConta;
+	private CategoriaReceitaService service;
 
 	@FXML
-	private TableColumn<Conta, Integer> tableColumnId;
+	private TableView<CategoriaReceita> tableViewCategoriaReceita;
 
 	@FXML
-	private TableColumn<Conta, String> tableColumnName;
+	private TableColumn<CategoriaReceita, Integer> tableColumnId;
 
 	@FXML
-	private TableColumn<Conta, Integer> tableColumnCPF;
+	private TableColumn<CategoriaReceita, String> tableColumnDescricao;
 
 	@FXML
-	private TableColumn<Conta, String> tableColumnTipoConta;
+	private TableColumn<CategoriaReceita, String> tableColumnCategoriaReceita;
 
 	@FXML
-	private TableColumn<Conta, String> tableColumnBanco;
+	private TableColumn<CategoriaReceita, CategoriaReceita> tableColumnEDIT;
 
 	@FXML
-	private TableColumn<Conta, Integer> tableColumnNumeroBanco;
-
-	@FXML
-	private TableColumn<Conta, Integer> tableColumnNumeroConta;
-
-	@FXML
-	private TableColumn<Conta, Integer> tableColumnNumeroAgencia;
-
-	@FXML
-	private TableColumn<Conta, Date> tableColumnDataCadastro;
-
-	@FXML
-	private TableColumn<Conta, Double> tableColumnSaldoAtual;
-	
-	@FXML
-	private TableColumn<Conta, Double> tableColumnSaldoInicial;
-
-	@FXML
-	private TableColumn<Conta, Boolean> tableColumnFavorita;
-
-	@FXML
-	private TableColumn<Conta, Conta> tableColumnEDIT;
-
-	@FXML
-	private TableColumn<Conta, Conta> tableColumnREMOVE;
+	private TableColumn<CategoriaReceita, CategoriaReceita> tableColumnREMOVE;
 
 	@FXML
 	private Button btNew;
 
-	private ObservableList<Conta> obsList;
+	private ObservableList<CategoriaReceita> obsList;
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		Conta obj = new Conta();
-		createDialogForm(obj, "/gui/ContaForm.fxml", parentStage);
+		CategoriaReceita obj = new CategoriaReceita();
+		createDialogForm(obj, "/gui/CategoriaReceitaForm.fxml", parentStage);
 	}
 
-	public void setContaService(ContaService service) {
+	public void setCategoriaReceitaService(CategoriaReceitaService service) {
 		this.service = service;
 	}
 
@@ -105,49 +77,37 @@ public class ContaListController implements Initializable, DataChangeListener {
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		tableColumnCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-		tableColumnTipoConta.setCellValueFactory(new PropertyValueFactory<>("tipoConta"));
-		tableColumnBanco.setCellValueFactory(new PropertyValueFactory<>("banco"));
-		tableColumnNumeroBanco.setCellValueFactory(new PropertyValueFactory<>("numeroBanco"));
-		tableColumnNumeroConta.setCellValueFactory(new PropertyValueFactory<>("numeroConta"));
-		tableColumnNumeroAgencia.setCellValueFactory(new PropertyValueFactory<>("numeroAgencia"));
-		tableColumnDataCadastro.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
-		Utils.formatTableColumnDate(tableColumnDataCadastro, "dd/MM/yyyy");
-		tableColumnSaldoInicial.setCellValueFactory(new PropertyValueFactory<>("saldoInicial"));
-		Utils.formatTableColumnDouble(tableColumnSaldoInicial, 2);
-		tableColumnSaldoAtual.setCellValueFactory(new PropertyValueFactory<>("saldoAtual"));
-		Utils.formatTableColumnDouble(tableColumnSaldoAtual, 2);
-		tableColumnFavorita.setCellValueFactory(new PropertyValueFactory<>("favorita"));
+		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+		tableColumnCategoriaReceita.setCellValueFactory(new PropertyValueFactory<>("catReceita"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewConta.prefHeightProperty().bind(stage.heightProperty());
+		tableViewCategoriaReceita.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<Conta> list = service.findAll();
+		List<CategoriaReceita> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewConta.setItems(obsList);
+		tableViewCategoriaReceita.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
 	}
 
-	private void createDialogForm(Conta obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(CategoriaReceita obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-			ContaFormController controller = loader.getController();
-			controller.setConta(obj);
-			controller.setContaService(new ContaService());
+			CategoriaReceitaFormController controller = loader.getController();
+			controller.setCategoriaReceita(obj);
+			controller.setCategoriaReceitaService(new CategoriaReceitaService());
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Adicionar Conta");
+			dialogStage.setTitle("Adicionar CategoriaReceita");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
@@ -167,11 +127,11 @@ public class ContaListController implements Initializable, DataChangeListener {
 
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEDIT.setCellFactory(param -> new TableCell<Conta, Conta>() {
+		tableColumnEDIT.setCellFactory(param -> new TableCell<CategoriaReceita, CategoriaReceita>() {
 			private final Button button = new Button("edit");
 
 			@Override
-			protected void updateItem(Conta obj, boolean empty) {
+			protected void updateItem(CategoriaReceita obj, boolean empty) {
 				super.updateItem(obj, empty);
 
 				if (obj == null) {
@@ -180,18 +140,19 @@ public class ContaListController implements Initializable, DataChangeListener {
 				}
 
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/ContaForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/CategoriaReceitaForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
 
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnREMOVE.setCellFactory(param -> new TableCell<Conta, Conta>() {
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<CategoriaReceita, CategoriaReceita>() {
 			private final Button button = new Button("remove");
 
 			@Override
-			protected void updateItem(Conta obj, boolean empty) {
+			protected void updateItem(CategoriaReceita obj, boolean empty) {
 				super.updateItem(obj, empty);
 
 				if (obj == null) {
@@ -205,7 +166,7 @@ public class ContaListController implements Initializable, DataChangeListener {
 		});
 	}
 
-	private void removeEntity(Conta obj) {
+	private void removeEntity(CategoriaReceita obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 
 		if (result.get() == ButtonType.OK) {

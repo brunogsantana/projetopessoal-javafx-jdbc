@@ -105,7 +105,7 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">
                                  <children>
-                                    <Label fx:id="labelCategoria" onMouseClicked="#onLabelCategoriaClick" text="Categorias" />
+                                    <Label fx:id="labelCategoriaReceita" onMouseClicked="#onLabelCategoriaClick" text="Categoria Receita" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">

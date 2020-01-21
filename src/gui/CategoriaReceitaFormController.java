@@ -1,0 +1,190 @@
+package gui;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
+
+import db.DbException;
+import gui.listeners.DataChangeListener;
+import gui.util.Alerts;
+import gui.util.Constraints;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import model.entities.CategoriaReceita;
+import model.exceptions.ValidationException;
+import model.services.CategoriaReceitaService;
+
+public class CategoriaReceitaFormController implements Initializable {
+
+	private CategoriaReceita entity;
+
+	private CategoriaReceitaService service;
+
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
+
+	@FXML
+	private TextField txtId;
+
+	@FXML
+	private TextField txtDescricao;
+
+	@FXML
+	private TextField txtCategoriaReceita;
+
+	@FXML
+	private Label labelErrorDescricao;
+
+	@FXML
+	private Label labelErrorCategoriaReceita;
+
+	@FXML
+	private Button btSave;
+
+	@FXML
+	private Button btCancel;
+
+	public void setCategoriaReceita(CategoriaReceita entity) {
+
+		this.entity = entity;
+
+	}
+
+	public void setCategoriaReceitaService(CategoriaReceitaService service) {
+
+		this.service = service;
+
+	}
+
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+
+		dataChangeListeners.add(listener);
+
+	}
+
+	@FXML
+
+	private void onBtSaveAction(ActionEvent event) {
+
+		if (entity == null) {
+
+			throw new IllegalStateException("Entity was null");
+
+		}
+
+		if (service == null) {
+
+			throw new IllegalStateException("Service was null");
+
+		}
+
+		try {
+
+			entity = getFormData();
+
+			service.saveOrUpdate(entity);
+
+			notifyDataChangeListeners();
+
+			Utils.currentStage(event).close();
+
+		} catch (ValidationException e) {
+
+			setErrorMessages(e.getErrors());
+
+		} catch (DbException e) {
+
+			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
+
+		}
+
+	}
+
+	private void notifyDataChangeListeners() {
+
+		for (DataChangeListener listener : dataChangeListeners) {
+
+			listener.onDataChanged();
+
+		}
+
+	}
+
+	private CategoriaReceita getFormData() {
+
+		CategoriaReceita obj = new CategoriaReceita();
+
+		ValidationException exception = new ValidationException("Validation error");
+
+		obj.setId(Utils.tryParseToInt(txtId.getText()));
+
+		if (txtDescricao.getText() == null || txtDescricao.getText().trim().equals("")) {
+			exception.addError("descricao", "Field can't be empty");
+		}
+		obj.setDescricao(txtDescricao.getText());
+
+		if (txtCategoriaReceita.getText() == null || txtCategoriaReceita.getText().trim().equals("")) {
+			exception.addError("categoriaReceita", "Field can't be empty");
+		}
+		obj.setCatReceita(txtCategoriaReceita.getText());
+
+		if (exception.getErrors().size() > 0) {
+			throw exception;
+		}
+		return obj;
+
+	}
+
+	@FXML
+	private void onBtCancelAction(ActionEvent event) {
+		Utils.currentStage(event).close();
+	}
+
+	@Override
+	public void initialize(URL uri, ResourceBundle rb) {
+		initializeNodes();
+	}
+
+	private void initializeNodes() {
+		Constraints.setTextFieldInteger(txtId);
+		Constraints.setTextFieldMaxLength(txtDescricao, 30);
+		Constraints.setTextFieldMaxLength(txtCategoriaReceita, 30);
+	}
+
+	public void updateFormData() {
+
+		if (entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+
+		txtId.setText(String.valueOf(entity.getId()));
+		txtDescricao.setText(entity.getDescricao());
+		txtCategoriaReceita.setText(entity.getCatReceita());
+		
+	}
+
+	private void setErrorMessages(Map<String, String> errors) {
+
+		Set<String> fields = errors.keySet();
+
+		if (fields.contains("descricao")) {
+			labelErrorDescricao.setText(errors.get("descricao"));
+		} else {
+			labelErrorDescricao.setText("");
+		}
+
+		if (fields.contains("categoriaReceita")) {
+			labelErrorCategoriaReceita.setText(errors.get("categoriaReceita"));
+		} else {
+			labelErrorCategoriaReceita.setText("");
+		}
+	}
+}

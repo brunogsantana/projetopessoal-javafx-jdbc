@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.ReceitaDao;
+import model.entities.Conta;
 import model.entities.Receita;
 
 public class ReceitaService {
@@ -12,6 +13,10 @@ public class ReceitaService {
 	
 	public List<Receita> findAll(){
 		return dao.findAll();
+	}
+	
+	public List<Receita> findByConta(Conta obj){
+		return dao.findByConta(obj);
 	}
 	
 	public void saveOrUpdate (Receita obj) {

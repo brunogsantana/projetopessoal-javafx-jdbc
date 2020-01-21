@@ -30,7 +30,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.entities.Conta;
 import model.entities.Receita;
+import model.services.CategoriaReceitaService;
 import model.services.ContaService;
 import model.services.ReceitaService;
 
@@ -69,6 +71,9 @@ public class ReceitaListController implements Initializable, DataChangeListener 
 	private TableColumn<Receita, String> tableColumnObs;
 
 	@FXML
+	private TableColumn<Receita, String> tableColumnContaId;
+
+	@FXML
 	private TableColumn<Receita, Receita> tableColumnEDIT;
 
 	@FXML
@@ -102,12 +107,12 @@ public class ReceitaListController implements Initializable, DataChangeListener 
 		tableColumnDataConcluidaReceita.setCellValueFactory(new PropertyValueFactory<>("dataConcluidaReceita"));
 		Utils.formatTableColumnDate(tableColumnDataConcluidaReceita, "dd/MM/yyyy");
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-		tableColumnCodigoCategoriaReceita.setCellValueFactory(new PropertyValueFactory<>("codigoCategoriaReceita"));
 		tableColumnCategoriaReceita.setCellValueFactory(new PropertyValueFactory<>("categoriaReceita"));
 		tableColumnStatusReceita.setCellValueFactory(new PropertyValueFactory<>("statusReceita"));
 		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
 		Utils.formatTableColumnDouble(tableColumnValor, 2);
 		tableColumnObs.setCellValueFactory(new PropertyValueFactory<>("obs"));
+		tableColumnContaId.setCellValueFactory(new PropertyValueFactory<>("conta"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewReceita.prefHeightProperty().bind(stage.heightProperty());
@@ -122,6 +127,8 @@ public class ReceitaListController implements Initializable, DataChangeListener 
 		tableViewReceita.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
+
+
 	}
 
 	private void createDialogForm(Receita obj, String absoluteName, Stage parentStage) {
@@ -131,7 +138,7 @@ public class ReceitaListController implements Initializable, DataChangeListener 
 
 			ReceitaFormController controller = loader.getController();
 			controller.setReceita(obj);
-			controller.setServices(new ReceitaService(), new ContaService());
+			controller.setServices(new ReceitaService(), new ContaService(), new CategoriaReceitaService());
 			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();

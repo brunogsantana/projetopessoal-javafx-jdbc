@@ -14,6 +14,7 @@ import com.mysql.jdbc.Statement;
 import db.DB;
 import db.DbException;
 import model.dao.ReceitaDao;
+import model.entities.CategoriaReceita;
 import model.entities.Conta;
 import model.entities.Receita;
 
@@ -30,18 +31,18 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("INSERT INTO receita "
-					+ "(DataOriginalReceita, DataConcluidaReceita, Descricao, CodigoCategoriaReceita, CategoriaReceita, StatusReceita, Valor, Obs, ContaId) "
-					+ "VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					+ "(DataOriginalReceita, DataConcluidaReceita, Descricao, CategoriaReceita, StatusReceita, Valor, Obs, ContaId, CategoriaId) "
+					+ "VALUES " + "( ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			st.setDate(1, new java.sql.Date(obj.getDataOriginalReceita().getTime()));
 			st.setDate(2, new java.sql.Date(obj.getDataConcluidaReceita().getTime()));
 			st.setString(3, obj.getDescricao());
-			st.setInt(4, obj.getCodigoCategoriaReceita());
-			st.setString(5, obj.getCategoriaReceita());
-			st.setString(6, obj.getStatusReceita());
-			st.setDouble(7, obj.getValor());
-			st.setString(8, obj.getObs());
-			st.setInt(9, obj.getConta().getId());
+			st.setString(4, obj.getCategoriaReceita().getCatReceita());
+			st.setString(5, obj.getStatusReceita());
+			st.setDouble(6, obj.getValor());
+			st.setString(7, obj.getObs());
+			st.setInt(8, obj.getConta().getId());
+			st.setInt(9, obj.getCategoriaReceita().getId());
 
 			int rowsAffected = st.executeUpdate();
 
@@ -67,18 +68,18 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("UPDATE receita "
-					+ "SET DataOriginalReceita = ?, DataConcluidaReceita = ?, Descricao = ?, CodigoCategoriaReceita = ?, CategoriaReceita = ?, StatusReceita = ?, Valor = ?, Obs = ?, ContaId = ? "
+					+ "SET DataOriginalReceita = ?, DataConcluidaReceita = ?, Descricao = ?, CategoriaReceita = ?, StatusReceita = ?, Valor = ?, Obs = ?, ContaId = ?, CategoriaId = ? "
 					+ "WHERE Id = ?");
 
 			st.setDate(1, new java.sql.Date(obj.getDataOriginalReceita().getTime()));
 			st.setDate(2, new java.sql.Date(obj.getDataConcluidaReceita().getTime()));
 			st.setString(3, obj.getDescricao());
-			st.setInt(4, obj.getCodigoCategoriaReceita());
-			st.setString(5, obj.getCategoriaReceita());
-			st.setString(6, obj.getStatusReceita());
-			st.setDouble(7, obj.getValor());
-			st.setString(8, obj.getObs());
-			st.setInt(9, obj.getConta().getId());
+			st.setString(4, obj.getCategoriaReceita().getCatReceita());
+			st.setString(5, obj.getStatusReceita());
+			st.setDouble(6, obj.getValor());
+			st.setString(7, obj.getObs());
+			st.setInt(8, obj.getConta().getId());
+			st.setInt(9, obj.getCategoriaReceita().getId());
 			st.setInt(10, obj.getId());
 
 			st.executeUpdate();
@@ -117,7 +118,8 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Conta dep = instantiateConta(rs);
-				Receita obj = instantiateReceita(rs, dep);
+				CategoriaReceita dep1 = instantiateCategoriaReceita(rs);
+				Receita obj = instantiateReceita(rs, dep, dep1);
 				return obj;
 			}
 			return null;
@@ -129,16 +131,13 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		}
 	}
 
-	private Receita instantiateReceita(ResultSet rs, Conta dep) throws SQLException {
+	private Receita instantiateReceita(ResultSet rs, Conta dep, CategoriaReceita dep1) throws SQLException {
 		Receita obj = new Receita();
 		obj.setId(rs.getInt("Id"));
-//		obj.setDataOriginalReceita(rs.getDate("DataOriginalReceita"));
-//		obj.setDataConcluidaReceita(rs.getDate("DataConcluidaReceita"));
 		obj.setDataOriginalReceita(new java.util.Date(rs.getTimestamp("DataOriginalReceita").getTime()));
 		obj.setDataConcluidaReceita(new java.util.Date(rs.getTimestamp("DataConcluidaReceita").getTime()));
 		obj.setDescricao(rs.getString("Descricao"));
-		obj.setCodigoCategoriaReceita(rs.getInt("CodigoCategoriaReceita"));
-		obj.setCategoriaReceita(rs.getString("CategoriaReceita"));
+		obj.setCategoriaReceita(dep1);
 		obj.setStatusReceita(rs.getString("StatusReceita"));
 		obj.setValor(rs.getDouble("Valor"));
 		obj.setObs(rs.getString("Obs"));
@@ -153,29 +152,43 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		return dep;
 	}
 
+	private CategoriaReceita instantiateCategoriaReceita(ResultSet rs) throws SQLException {
+		CategoriaReceita dep1 = new CategoriaReceita();
+		dep1.setId(rs.getInt("CategoriaId"));
+		dep1.setCatReceita(rs.getString("CategoriaReceita"));
+		return dep1;
+	}
+
 	@Override
 	public List<Receita> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT receita.*,conta.Name as DepName " + "FROM receita INNER JOIN conta "
-					+ "ON receita.ContaId = conta.Id " + "ORDER BY Name");
+			st = conn.prepareStatement("" + "SELECT receita.*, conta.name as DepName "
+					+ "FROM receita INNER JOIN conta " + "ON receita.ContaId = conta.Id " + "ORDER BY Name");
 
 			rs = st.executeQuery();
 
 			List<Receita> list = new ArrayList<>();
 			Map<Integer, Conta> map = new HashMap<>();
+			Map<Integer, CategoriaReceita> map1 = new HashMap<>();
 
 			while (rs.next()) {
 
 				Conta dep = map.get(rs.getInt("ContaId"));
+				CategoriaReceita dep1 = map1.get(rs.getInt("CategoriaId"));
 
 				if (dep == null) {
 					dep = instantiateConta(rs);
 					map.put(rs.getInt("ContaId"), dep);
 				}
 
-				Receita obj = instantiateReceita(rs, dep);
+				if (dep1 == null) {
+					dep1 = instantiateCategoriaReceita(rs);
+					map1.put(rs.getInt("CategoriaId"), dep1);
+				}
+
+				Receita obj = instantiateReceita(rs, dep, dep1);
 				list.add(obj);
 			}
 			return list;
@@ -193,6 +206,7 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement("SELECT receita.*,conta.Name as DepName " + "FROM receita INNER JOIN conta "
+
 					+ "ON receita.ContaId = conta.Id " + "WHERE ContaId = ? " + "ORDER BY Name");
 
 			st.setInt(1, conta.getId());
@@ -201,17 +215,25 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 
 			List<Receita> list = new ArrayList<>();
 			Map<Integer, Conta> map = new HashMap<>();
+			Map<Integer, CategoriaReceita> map1 = new HashMap<>();
 
 			while (rs.next()) {
 
 				Conta dep = map.get(rs.getInt("ContaId"));
+				CategoriaReceita dep1 = map1.get(rs.getInt("CategoriaId"));
 
 				if (dep == null) {
 					dep = instantiateConta(rs);
+					dep1 = instantiateCategoriaReceita(rs);
 					map.put(rs.getInt("ContaId"), dep);
 				}
 
-				Receita obj = instantiateReceita(rs, dep);
+				if (dep1 == null) {
+					dep1 = instantiateCategoriaReceita(rs);
+					map1.put(rs.getInt("CategoriaId"), dep1);
+				}
+				
+				Receita obj = instantiateReceita(rs, dep, dep1);
 				list.add(obj);
 			}
 			return list;
@@ -221,5 +243,11 @@ public class ReceitaDaoJDBC implements ReceitaDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+
+	@Override
+	public List<Receita> findByCategoriaReceita(CategoriaReceita categoriaReceita) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

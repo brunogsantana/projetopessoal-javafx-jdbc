@@ -30,9 +30,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
+import model.entities.CategoriaReceita;
 import model.entities.Conta;
 import model.entities.Receita;
 import model.exceptions.ValidationException;
+import model.services.CategoriaReceitaService;
 import model.services.ContaService;
 import model.services.ReceitaService;
 
@@ -44,10 +46,11 @@ public class ReceitaFormController implements Initializable {
 
 	private ContaService contaService;
 
+	private CategoriaReceitaService categoriaReceitaService;
+
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
 	ObservableList<String> comboBoxStatus = FXCollections.observableArrayList("Recebido", "A Receber");
-	ObservableList<String> comboBoxCategoria = FXCollections.observableArrayList("Salario", "Ferias");
 
 	@FXML
 	private TextField txtId;
@@ -62,10 +65,7 @@ public class ReceitaFormController implements Initializable {
 	private TextField txtDescricao;
 
 	@FXML
-	private TextField txtCodigoCategoriaReceita;
-
-	@FXML
-	private ComboBox<String> comboBoxCategoriaReceita;
+	private ComboBox<CategoriaReceita> comboBoxCategoriaReceita;
 
 	@FXML
 	private ComboBox<String> comboBoxStatusReceita;
@@ -92,9 +92,6 @@ public class ReceitaFormController implements Initializable {
 	private Label labelErrorDescricao;
 
 	@FXML
-	private Label labelErrorCodigoCategoriaReceita;
-
-	@FXML
 	private Label labelErrorCategoriaReceita;
 
 	@FXML
@@ -112,15 +109,19 @@ public class ReceitaFormController implements Initializable {
 	@FXML
 	private Button btCancel;
 
-	private ObservableList<Conta> obsList;
+	private ObservableList<Conta> obsListConta;
+
+	private ObservableList<CategoriaReceita> obsListCatReceita;
 
 	public void setReceita(Receita entity) {
 		this.entity = entity;
 	}
 
-	public void setServices(ReceitaService service, ContaService contaService) {
+	public void setServices(ReceitaService service, ContaService contaService,
+			CategoriaReceitaService categoriaReceitaService) {
 		this.service = service;
 		this.contaService = contaService;
+		this.categoriaReceitaService = categoriaReceitaService;
 	}
 
 	public void subscribeDataChangeListener(DataChangeListener listener) {
@@ -179,12 +180,7 @@ public class ReceitaFormController implements Initializable {
 		}
 		obj.setDescricao(txtDescricao.getText());
 
-		if (txtCodigoCategoriaReceita.getText() == null || txtCodigoCategoriaReceita.getText().trim().equals("")) {
-			exception.addError("codigoCategoriaReceita", "Field can't be empty");
-		}
-		obj.setCodigoCategoriaReceita(Utils.tryParseToInt(txtCodigoCategoriaReceita.getText()));
-
-		if (comboBoxCategoriaReceita.getValue() == null || comboBoxCategoriaReceita.getValue().trim().equals("")) {
+		if (comboBoxCategoriaReceita.getValue() == null) {
 			exception.addError("categoriaReceita", "Field can't be empty");
 		}
 		obj.setCategoriaReceita(comboBoxCategoriaReceita.getValue());
@@ -226,13 +222,11 @@ public class ReceitaFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtDescricao, 30);
 		Constraints.setTextFieldMaxLength(txtObs, 30);
-		Constraints.setTextFieldInteger(txtCodigoCategoriaReceita);
-		Constraints.setTextFieldInteger(txtCodigoCategoriaReceita);
 		Utils.formatDatePicker(DPDataOriginalReceita, "dd/MM/yyyy");
 		Utils.formatDatePicker(DPDataConcluidaReceita, "dd/MM/yyyy");
 		Constraints.setTextFieldDouble(txtValor);
 		comboBoxStatusReceita.setItems(comboBoxStatus);
-		comboBoxCategoriaReceita.setItems(comboBoxCategoria);
+		initializecomboBoxCategoriaReceita();
 		initializeComboBoxConta();
 
 	}
@@ -254,7 +248,6 @@ public class ReceitaFormController implements Initializable {
 		}
 
 		txtDescricao.setText(entity.getDescricao());
-		txtCodigoCategoriaReceita.setText(String.valueOf(entity.getCodigoCategoriaReceita()));
 
 		if (entity.getCategoriaReceita() == null) {
 			comboBoxCategoriaReceita.getSelectionModel().selectFirst();
@@ -283,9 +276,16 @@ public class ReceitaFormController implements Initializable {
 		if (contaService == null) {
 			throw new IllegalStateException("ContaService was null");
 		}
-		List<Conta> list = contaService.findAll();
-		obsList = FXCollections.observableArrayList(list);
-		comboBoxConta.setItems(obsList);
+		List<Conta> listConta = contaService.findAll();
+		obsListConta = FXCollections.observableArrayList(listConta);
+		comboBoxConta.setItems(obsListConta);
+
+		if (categoriaReceitaService == null) {
+			throw new IllegalStateException("CategoriaReceitaService was null");
+		}
+		List<CategoriaReceita> listCatReceita = categoriaReceitaService.findAll();
+		obsListCatReceita = FXCollections.observableArrayList(listCatReceita);
+		comboBoxCategoriaReceita.setItems(obsListCatReceita);
 
 	}
 
@@ -306,11 +306,6 @@ public class ReceitaFormController implements Initializable {
 			labelErrorDescricao.setText(errors.get("descricao"));
 		} else {
 			labelErrorDescricao.setText("");
-		}
-		if (fields.contains("codigoCategoriaReceita")) {
-			labelErrorCodigoCategoriaReceita.setText(errors.get("codigoCategoriaReceita"));
-		} else {
-			labelErrorCodigoCategoriaReceita.setText("");
 		}
 		if (fields.contains("categoriaReceita")) {
 			labelErrorCategoriaReceita.setText(errors.get("categoriaReceita"));
@@ -346,4 +341,18 @@ public class ReceitaFormController implements Initializable {
 		comboBoxConta.setCellFactory(factory);
 		comboBoxConta.setButtonCell(factory.call(null));
 	}
+
+	private void initializecomboBoxCategoriaReceita() {
+		Callback<ListView<CategoriaReceita>, ListCell<CategoriaReceita>> factory = lv -> new ListCell<CategoriaReceita>() {
+			@Override
+			protected void updateItem(CategoriaReceita item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getCatReceita());
+			}
+		};
+
+		comboBoxCategoriaReceita.setCellFactory(factory);
+		comboBoxCategoriaReceita.setButtonCell(factory.call(null));
+	}
+
 }

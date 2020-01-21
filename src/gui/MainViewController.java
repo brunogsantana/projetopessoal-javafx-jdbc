@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.CategoriaReceitaService;
 import model.services.ContaService;
 import model.services.ReceitaService;
 
@@ -68,7 +69,7 @@ public class MainViewController implements Initializable {
 	private Label labelCadastro;
 
 	@FXML
-	private Label labelCategoria;
+	private Label labelCategoriaReceita;
 
 	@FXML
 	private Label labelContas;
@@ -169,7 +170,11 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onLabelCategoriaClick() {
+		loadView("/gui/CategoriaReceitaList.fxml", (CategoriaReceitaListController controller) -> {
+			controller.setCategoriaReceitaService(new CategoriaReceitaService());
+			controller.updateTableView();
 
+		});
 	}
 
 	@FXML
