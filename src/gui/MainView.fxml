@@ -48,6 +48,11 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">
                                  <children>
+                                    <Label fx:id="labelDespesas" onMouseClicked="#onLabelDespesasClick" text="Despesas" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="19.0" prefWidth="100.0">
+                                 <children>
                                     <Label fx:id="labelFluxo" onMouseClicked="#onLabelFluxoClick" text="Fluxo" />
                                  </children>
                               </AnchorPane>
@@ -100,12 +105,17 @@
                               <Separator prefWidth="200.0" />
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">
                                  <children>
-                                    <Label fx:id="labelCadastro" onMouseClicked="#onLabelCadastroClick" text="Cadastros" />
+                                    <Label fx:id="labelCategoriaReceita" onMouseClicked="#onLabelCategoriaReceitaClick" text="Categoria Receita" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">
                                  <children>
-                                    <Label fx:id="labelCategoriaReceita" onMouseClicked="#onLabelCategoriaClick" text="Categoria Receita" />
+                                    <Label fx:id="labelCategoriaDespesa" onMouseClicked="#onLabelCategoriaDespesaClick" text="Categoria Despesa" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="labelCategoriaDespesaFilho" onMouseClicked="#onLabelCategoriaDespesaFilhoClick" text="Categoria Despesa Filho" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">

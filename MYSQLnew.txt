@@ -21,13 +21,21 @@ CREATE TABLE categoriaReceita (
   PRIMARY KEY (Id)
 );
 
+CREATE TABLE categoriaDespesaFilho (
+  Id int(11) NOT NULL AUTO_INCREMENT,
+  CategoriaFilhoDespesa varchar(100) NOT NULL UNIQUE,
+  PRIMARY KEY (Id)
+);
 
 CREATE TABLE categoriaDespesa (
   Id int(11) NOT NULL AUTO_INCREMENT,
   Descricao varchar(100) DEFAULT NULL,
-  CategoriaPaiDespesa varchar(100) NOT NULL UNIQUE,
-  CategoriaFilhoDespesa varchar(100) NOT NULL UNIQUE,
-  PRIMARY KEY (Id)
+  CategoriaPaiDespesa varchar(100) NOT NULL,
+  CategoriaFilhoDespesa varchar(100) DEFAULT NULL,
+  CategoriaFilhoDespesaId int(11) DEFAULT NULL,
+  PRIMARY KEY (Id),
+  FOREIGN KEY (CategoriaFilhoDespesa) REFERENCES categoriaDespesaFilho (CategoriaFilhoDespesa),
+  FOREIGN KEY (CategoriaFilhoDespesaId) REFERENCES categoriaDespesaFilho (Id)
 );
 
 CREATE TABLE receita (
@@ -63,10 +71,11 @@ CREATE TABLE despesa(
   Obs varchar(60) DEFAULT NULL,
   ContaId int(11) DEFAULT NULL,
   CategoriaId int(11) DEFAULT NULL,
+  CategoriaFilhoDespesaId int(11) DEFAULT NULL,
   PRIMARY KEY (Id),
   FOREIGN KEY (ContaId) REFERENCES conta (Id),
   FOREIGN KEY (CategoriaId) REFERENCES categoriaDespesa (Id),
-  FOREIGN KEY (CategoriaPaiDespesa) REFERENCES categoriaDespesa (CategoriaPaiDespesa),
+  FOREIGN KEY (CategoriaFilhoDespesaId) REFERENCES categoriaDespesa (Id),
   FOREIGN KEY (CategoriaFilhoDespesa) REFERENCES categoriaDespesa (CategoriaFilhoDespesa)
 );
 
@@ -77,11 +86,14 @@ INSERT INTO conta (Name, CPF, TipoConta, Banco, NumeroBanco, NumeroAgencia, Nume
 INSERT INTO categoriaReceita (Descricao, CategoriaReceita) VALUES 
   ('Salario recebido', 'Salario');
 
-INSERT INTO categoriaDespesa (Descricao, CategoriaPaiDespesa, CategoriaFilhoDespesa) VALUES 
-  ('Habitacao', 'Habitacao', 'Aluguel');
+INSERT INTO categoriaDespesaFilho (CategoriaFilhoDespesa) VALUES 
+  ('Energia');
+
+INSERT INTO categoriaDespesa (Descricao, CategoriaPaiDespesa, CategoriaFilhoDespesa,CategoriaFilhoDespesaId) VALUES 
+  ('Habitacao', 'Habitacao', 'Energia',1);
 
 INSERT INTO receita (DataOriginalReceita, DataConcluidaReceita, Descricao, CategoriaReceita, StatusReceita, Valor, Obs, ContaId, CategoriaId) VALUES 
   ('1998-04-21 00:00:00','2018-04-21 00:00:00','teste','Salario','recebido',1000,'nada',1,1);
 
-INSERT INTO despesa (DataOriginalDespesa, DataConcluidaDespesa, Descricao, CategoriaPaiDespesa, CategoriaFilhoDespesa, StatusDespesa, MeioPagamento, QtdParcela, ValorParcela, DataPagamentoParcela, Valor, Obs, ContaId, CategoriaId) VALUES 
-  ('1998-04-21 00:00:00','2018-04-21 00:00:00','teste', 'habitacao', 'aluguel', 'recebido', 'dinheiro', 2, 10, '1998-04-21 00:00:00',1000,'nada',1,1);
+INSERT INTO despesa (DataOriginalDespesa, DataConcluidaDespesa, Descricao, CategoriaPaiDespesa, CategoriaFilhoDespesa, StatusDespesa, MeioPagamento, QtdParcela, ValorParcela, DataPagamentoParcela, Valor, Obs, ContaId, CategoriaId, CategoriaFilhoDespesaId) VALUES 
+  ('1998-04-21 00:00:00','2018-04-21 00:00:00','teste', 'habitacao', 'Energia', 'recebido', 'dinheiro', 2, 10, '1998-04-21 00:00:00',1000,'nada',1,1, 1);

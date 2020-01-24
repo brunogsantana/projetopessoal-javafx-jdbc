@@ -2,6 +2,10 @@
 
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,130 +14,182 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
-   <children>
-      <SplitPane dividerPositions="0.2537037037037037, 0.49444444444444446" prefHeight="379.0" prefWidth="542.0">
-         <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="152.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelMovimentacaoCaixa" onMouseClicked="#onLabelMovimentacaoCaixaClick" text="Movimentacao e Caixa" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelReceitas" onMouseClicked="#onLabelReceitasClick" text="Receitas" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelFluxo" onMouseClicked="#onLabelFluxoClick" text="Fluxo" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelAPagarReceber" onMouseClicked="#onLabelAPagarReceberClick" text="A pagar e receber" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelPagasRecebidas" onMouseClicked="#onLabelPagasRecebidasClick" text="Pagas e recebidas" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelExtratoDeContas" onMouseClicked="#onLabelExtratoDeContasClick" text="Extrato de contas" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelCartaoDeCredito" onMouseClicked="#onLabelCartaoDeCreditoClick" text="Cartoes de credito" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelMetas" onMouseClicked="#onLabelMetasClick" text="Metas" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelOrcameto" onMouseClicked="#onLabelOrcametoClick" text="Orcamento" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelEconomia" onMouseClicked="#onLabelEconomiaClick" text="Economia" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelRelatorio" onMouseClicked="#onLabelRelatorioClick" text="Relatorios" />
-                           </children>
-                        </AnchorPane>
-                        <Separator prefWidth="200.0" />
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelInvestimento" onMouseClicked="#onLabelInvestimentoClick" text="Investimentos" />
-                           </children>
-                        </AnchorPane>
-                        <Separator prefWidth="200.0" />
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelCadastro" onMouseClicked="#onLabelCadastroClick" text="Cadastros" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelCategoria" onMouseClicked="#onLabelCategoriaClick" text="Categorias" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelContas" onMouseClicked="#onLabelContasClick" text="Contas" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelDocumentos" onMouseClicked="#onLabelDocumentosClick" text="Documentos" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelRegrasDePreenchimento" onMouseClicked="#onLabelRegrasDePreenchimentoClick" text="Regras de Preenchimento" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelImportarReceitas" onMouseClicked="#onLabelImportarReceitasClick" text="Importar lancamentos" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="19.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="labelFechamentoPosicao" onMouseClicked="#onLabelFechamentoPosicaoClick" text="Fechamento posicao" />
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="308.0" prefWidth="61.0">
-               <children>
-                  <ComboBox layoutX="5.0" prefHeight="28.0" prefWidth="97.0" />
-                  <Label layoutX="14.0" layoutY="5.0" text="Mes/Ano" />
-               </children>
-            </AnchorPane>
-            <FlowPane prefHeight="308.0" prefWidth="377.0" />
-         </items>
-      </SplitPane>
-      <HBox prefHeight="13.0" prefWidth="542.0">
-         <children>
-            <Label text="Versao teste" />
-            <Pane prefHeight="200.0" prefWidth="200.0" />
-            <Label text="Label" />
-         </children>
-      </HBox>
-   </children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0"
+	prefWidth="681.0" xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.MainViewController">
+	<children>
+		<SplitPane
+			dividerPositions="0.2537037037037037, 0.49444444444444446"
+			prefHeight="379.0" prefWidth="542.0">
+			<items>
+				<AnchorPane minHeight="0.0" minWidth="0.0"
+					prefHeight="102.0" prefWidth="152.0">
+					<children>
+						<VBox prefHeight="200.0" prefWidth="100.0">
+							<children>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelMovimentacaoCaixa"
+											onMouseClicked="#onLabelMovimentacaoCaixaClick"
+											text="Movimentacao e Caixa" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelReceitas"
+											onMouseClicked="#onLabelReceitasClick" text="Receitas" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelDespesas"
+											onMouseClicked="#onLabelDespesasClick" text="Despesas" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelFluxo"
+											onMouseClicked="#onLabelFluxoClick" text="Fluxo" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelAPagarReceber"
+											onMouseClicked="#onLabelAPagarReceberClick"
+											text="A pagar e receber" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelPagasRecebidas"
+											onMouseClicked="#onLabelPagasRecebidasClick"
+											text="Pagas e recebidas" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelExtratoDeContas"
+											onMouseClicked="#onLabelExtratoDeContasClick"
+											text="Extrato de contas" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelCartaoDeCredito"
+											onMouseClicked="#onLabelCartaoDeCreditoClick"
+											text="Cartoes de credito" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelMetas"
+											onMouseClicked="#onLabelMetasClick" text="Metas" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelOrcameto"
+											onMouseClicked="#onLabelOrcametoClick" text="Orcamento" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelEconomia"
+											onMouseClicked="#onLabelEconomiaClick" text="Economia" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelRelatorio"
+											onMouseClicked="#onLabelRelatorioClick" text="Relatorios" />
+									</children>
+								</AnchorPane>
+								<Separator prefWidth="200.0" />
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelInvestimento"
+											onMouseClicked="#onLabelInvestimentoClick"
+											text="Investimentos" />
+									</children>
+								</AnchorPane>
+								<Separator prefWidth="200.0" />
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelCategoriaReceita"
+											onMouseClicked="#onLabelCategoriaReceitaClick"
+											text="Categoria Receita" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelCategoriaDespesa"
+											onMouseClicked="#onLabelCategoriaDespesaClick"
+											text="Categoria Despesa" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="200.0" prefWidth="200.0">
+									<children>
+										<Label fx:id="labelCategoriaDespesaFilho"
+											onMouseClicked="#onLabelCategoriaDespesaFilhoClick"
+											text="Categoria Despesa Filho" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelContas"
+											onMouseClicked="#onLabelContasClick" text="Contas" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelDocumentos"
+											onMouseClicked="#onLabelDocumentosClick" text="Documentos" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelRegrasDePreenchimento"
+											onMouseClicked="#onLabelRegrasDePreenchimentoClick"
+											text="Regras de Preenchimento" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelImportarReceitas"
+											onMouseClicked="#onLabelImportarReceitasClick"
+											text="Importar lancamentos" />
+									</children>
+								</AnchorPane>
+								<AnchorPane prefHeight="19.0" prefWidth="100.0">
+									<children>
+										<Label fx:id="labelFechamentoPosicao"
+											onMouseClicked="#onLabelFechamentoPosicaoClick"
+											text="Fechamento posicao" />
+									</children>
+								</AnchorPane>
+							</children>
+						</VBox>
+					</children>
+				</AnchorPane>
+				<AnchorPane prefHeight="308.0" prefWidth="61.0">
+					<children>
+						<ComboBox layoutX="5.0" prefHeight="28.0"
+							prefWidth="97.0" />
+						<Label layoutX="14.0" layoutY="5.0" text="Mes/Ano" />
+					</children>
+				</AnchorPane>
+				<FlowPane prefHeight="308.0" prefWidth="377.0" />
+			</items>
+		</SplitPane>
+		<HBox prefHeight="13.0" prefWidth="542.0">
+			<children>
+				<Label text="Versao teste" />
+				<Pane prefHeight="200.0" prefWidth="200.0" />
+				<Label text="Label" />
+			</children>
+		</HBox>
+	</children>
 </VBox>
+

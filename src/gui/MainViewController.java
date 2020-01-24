@@ -17,8 +17,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.CategoriaDespesaFilhoService;
+import model.services.CategoriaDespesaService;
 import model.services.CategoriaReceitaService;
 import model.services.ContaService;
+import model.services.DespesaService;
 import model.services.ReceitaService;
 
 public class MainViewController implements Initializable {
@@ -34,6 +37,9 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private Label labelReceitas;
+	
+	@FXML
+	private Label labelDespesas;
 
 	@FXML
 	private Label labelFluxo;
@@ -66,8 +72,11 @@ public class MainViewController implements Initializable {
 	private Label labelInvestimento;
 
 	@FXML
-	private Label labelCadastro;
+	private Label labelCategoriaDespesa;
 
+	@FXML
+	private Label labelCategoriaDespesaFilho;
+	
 	@FXML
 	private Label labelCategoriaReceita;
 
@@ -108,6 +117,15 @@ public class MainViewController implements Initializable {
 	public void onLabelReceitasClick() {
 		loadView("/gui/ReceitaList.fxml", (ReceitaListController controller) -> {
 			controller.setReceitaService(new ReceitaService());
+			controller.updateTableView();
+
+		});
+	}
+	
+	@FXML
+	public void onLabelDespesasClick() {
+		loadView("/gui/DespesaList.fxml", (DespesaListController controller) -> {
+			controller.setDespesaService(new DespesaService());
 			controller.updateTableView();
 
 		});
@@ -164,19 +182,32 @@ public class MainViewController implements Initializable {
 	}
 
 	@FXML
-	public void onLabelCadastroClick() {
-
-	}
-
-	@FXML
-	public void onLabelCategoriaClick() {
+	public void onLabelCategoriaReceitaClick() {
 		loadView("/gui/CategoriaReceitaList.fxml", (CategoriaReceitaListController controller) -> {
 			controller.setCategoriaReceitaService(new CategoriaReceitaService());
 			controller.updateTableView();
 
 		});
 	}
+	
+	@FXML
+	public void onLabelCategoriaDespesaClick() {
+		loadView("/gui/CategoriaDespesaList.fxml", (CategoriaDespesaListController controller) -> {
+			controller.setCategoriaDespesaService(new CategoriaDespesaService());
+			controller.updateTableView();
 
+		});
+	}
+
+	@FXML
+	public void onLabelCategoriaDespesaFilhoClick() {
+		loadView("/gui/CategoriaDespesaFilhoList.fxml", (CategoriaDespesaFilhoListController controller) -> {
+			controller.setCategoriaDespesaFilhoService(new CategoriaDespesaFilhoService());
+			controller.updateTableView();
+
+		});
+	}
+	
 	@FXML
 	public void onLabelContasClick() {
 		loadView("/gui/ContaList.fxml", (ContaListController controller) -> {
