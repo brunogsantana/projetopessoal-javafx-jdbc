@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="453.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TransferenciaFormController">
+   <children>
+      <GridPane layoutX="-249.0" prefHeight="345.0" prefWidth="685.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.6666259765625" minWidth="10.0" prefWidth="115.66665649414062" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="405.0000305175781" minWidth="10.0" prefWidth="273.6666768391927" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.6666259765625" minWidth="10.0" prefWidth="284.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Id" />
+            <Label text="Data" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorId" textFill="RED" GridPane.columnIndex="2" />
+            <Label fx:id="labelErrorDataOriginalTransferencia" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Data de Conclusao" GridPane.rowIndex="2" />
+            <Label text="Conta Destino" GridPane.rowIndex="5" />
+            <Label text="Obs" GridPane.rowIndex="8" />
+            <Label text="Descricao" GridPane.rowIndex="3" />
+            <Label text="Conta Origem" GridPane.rowIndex="4" />
+            <Label text="Valor" GridPane.rowIndex="6" />
+            <TextField fx:id="txtId" editable="false" promptText="ID da transferencia" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></TextField>
+            <DatePicker fx:id="DPDataOriginalTransferencia" prefHeight="25.0" prefWidth="170.0" promptText="Data original da transferencia" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="DPDataConcluidaTransferencia" prefHeight="25.0" prefWidth="170.0" promptText="Data de conclusao da transferencia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtDescricao" promptText="Descricao da transferencia" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="comboBoxContaOrigem" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxContaDestino" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtValor" promptText="Valor da transferencia" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="txtCustoTransferencia" promptText="Custo da Transferencia" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="txtObs" promptText="Observacao" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></TextField>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <children>
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
+                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
+               </children>
+            </HBox>
+            <Label fx:id="labelErrorDataConcluidaTransferencia" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorDescricao" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label fx:id="labelErrorValor" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label fx:id="labelErrorObs" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Label text="Custo da Transferencia" GridPane.rowIndex="7" />
+            <Label fx:id="labelErrorCustoTransferencia" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

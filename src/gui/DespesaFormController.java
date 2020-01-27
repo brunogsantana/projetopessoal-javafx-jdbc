@@ -16,7 +16,6 @@ import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
-import javafx.beans.binding.ListBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -153,7 +152,7 @@ public class DespesaFormController implements Initializable {
 
 	private ObservableList<Conta> obsListConta;
 	private ObservableList<CategoriaDespesa> obsListCatDespesa;
-	private ObservableList<CategoriaDespesa> obsListCatDespesa1;
+//	private ObservableList<CategoriaDespesa> obsListCatDespesa1;
 	private ObservableList<CategoriaDespesaFilho> obsListCatDespesaFilho;
 
 	public void setDespesa(Despesa entity) {

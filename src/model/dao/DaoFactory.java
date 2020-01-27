@@ -7,6 +7,7 @@ import model.dao.impl.CategoriaReceitaDaoJDBC;
 import model.dao.impl.ContaDaoJDBC;
 import model.dao.impl.DespesaDaoJDBC;
 import model.dao.impl.ReceitaDaoJDBC;
+import model.dao.impl.TransferenciaDaoJDBC;
 
 public class DaoFactory {
 
@@ -32,5 +33,9 @@ public class DaoFactory {
 
 	public static CategoriaReceitaDao createCategoriaReceitaDao() {
 		return new CategoriaReceitaDaoJDBC(DB.getConnection());
+	}
+	
+	public static TransferenciaDao createTransferenciaDao() {
+		return new TransferenciaDaoJDBC(DB.getConnection());
 	}
 }

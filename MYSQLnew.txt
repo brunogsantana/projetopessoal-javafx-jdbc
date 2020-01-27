@@ -79,6 +79,23 @@ CREATE TABLE despesa(
   FOREIGN KEY (CategoriaFilhoDespesa) REFERENCES categoriaDespesa (CategoriaFilhoDespesa)
 );
 
+
+CREATE TABLE transferencia(
+  Id int(11) NOT NULL AUTO_INCREMENT,
+  DataOriginalTransferencia datetime(6) DEFAULT NULL,
+  DataConcluidaTransferencia datetime(6) DEFAULT NULL,
+  Descricao varchar(60) DEFAULT NULL,
+  ContaOrigemId int(11) DEFAULT NULL,
+  ContaDestinoId int(11) DEFAULT NULL,
+  Valor double DEFAULT NULL,
+  CustoTransferencia double DEFAULT NULL,
+  Obs varchar(60) DEFAULT NULL,
+  PRIMARY KEY (Id),
+  FOREIGN KEY (ContaOrigemId) REFERENCES conta (Id),
+  FOREIGN KEY (ContaDestinoId) REFERENCES conta (Id)
+);
+
+
 INSERT INTO conta (Name, CPF, TipoConta, Banco, NumeroBanco, NumeroAgencia, NumeroConta, DataCadastro, SaldoInicial, SaldoAtual, Favorita) VALUES 
   ('Bruno Santana', "02268984583", "Poupanca", "Banco do Brasil", 001, 1603, 420050, '1998-04-21 00:00:00', 100.0, 2000.0, 0),
   ('Fernanda Santana', "06167986606", "ContaCorrente", "Banco do Brasil", 001, 1603, 420050, '1988-01-15 00:00:00', 100.0, 2000.0, 0);
@@ -97,3 +114,6 @@ INSERT INTO receita (DataOriginalReceita, DataConcluidaReceita, Descricao, Categ
 
 INSERT INTO despesa (DataOriginalDespesa, DataConcluidaDespesa, Descricao, CategoriaPaiDespesa, CategoriaFilhoDespesa, StatusDespesa, MeioPagamento, QtdParcela, ValorParcela, DataPagamentoParcela, Valor, Obs, ContaId, CategoriaId, CategoriaFilhoDespesaId) VALUES 
   ('1998-04-21 00:00:00','2018-04-21 00:00:00','teste', 'habitacao', 'Energia', 'recebido', 'dinheiro', 2, 10, '1998-04-21 00:00:00',1000,'nada',1,1, 1);
+
+INSERT INTO transferencia (DataOriginalTransferencia, DataConcluidaTransferencia, Descricao, ContaOrigemId, ContaDestinoId, Valor, CustoTransferencia, Obs) VALUES 
+  ('1998-04-21 00:00:00','2018-04-21 00:00:00','teste',1,2,1000,10,'nada');

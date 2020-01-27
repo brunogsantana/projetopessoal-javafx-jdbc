@@ -32,7 +32,7 @@ public class CategoriaDespesaFilhoFormController implements Initializable {
 	private CategoriaDespesaFilho entity;
 
 	private CategoriaDespesaFilhoService service;
-	
+
 	private CategoriaDespesaService categoriaDespesaService;
 
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
@@ -42,7 +42,7 @@ public class CategoriaDespesaFilhoFormController implements Initializable {
 
 	@FXML
 	private TextField txtCategoriaFilhoDespesa;
-	
+
 	@FXML
 	private ComboBox<CategoriaDespesa> comboBoxCategoriaDespesa;
 
@@ -63,13 +63,10 @@ public class CategoriaDespesaFilhoFormController implements Initializable {
 
 	private ObservableList<CategoriaDespesa> obsListCategoriaDespesa;
 
-	public void setServices(CategoriaDespesaFilhoService service,
-			CategoriaDespesaService categoriaDespesaService) {
+	public void setServices(CategoriaDespesaFilhoService service, CategoriaDespesaService categoriaDespesaService) {
 		this.service = service;
 		this.categoriaDespesaService = categoriaDespesaService;
 	}
-
-	
 
 	public void subscribeDataChangeListener(DataChangeListener listener) {
 
@@ -132,8 +129,7 @@ public class CategoriaDespesaFilhoFormController implements Initializable {
 		ValidationException exception = new ValidationException("Validation error");
 
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
-		
-	
+
 		if (txtCategoriaFilhoDespesa.getText() == null || txtCategoriaFilhoDespesa.getText().trim().equals("")) {
 			exception.addError("categoriaFilhoDespesa", "Field can't be empty");
 		}

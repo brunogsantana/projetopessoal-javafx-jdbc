@@ -16,7 +16,6 @@ import db.DbIntegrityException;
 import model.dao.CategoriaDespesaDao;
 import model.entities.CategoriaDespesa;
 import model.entities.CategoriaDespesaFilho;
-import model.entities.Receita;
 
 public class CategoriaDespesaDaoJDBC implements CategoriaDespesaDao {
 

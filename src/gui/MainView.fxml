@@ -51,6 +51,11 @@
                                     <Label fx:id="labelDespesas" onMouseClicked="#onLabelDespesasClick" text="Despesas" />
                                  </children>
                               </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="labelTransferencia" onMouseClicked="#onLabelTransferenciasClick" text="Transferencias" />
+                                 </children>
+                              </AnchorPane>
                               <AnchorPane prefHeight="19.0" prefWidth="100.0">
                                  <children>
                                     <Label fx:id="labelFluxo" onMouseClicked="#onLabelFluxoClick" text="Fluxo" />

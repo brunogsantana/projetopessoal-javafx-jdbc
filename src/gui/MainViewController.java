@@ -23,6 +23,7 @@ import model.services.CategoriaReceitaService;
 import model.services.ContaService;
 import model.services.DespesaService;
 import model.services.ReceitaService;
+import model.services.TransferenciaService;
 
 public class MainViewController implements Initializable {
 
@@ -40,6 +41,9 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	private Label labelDespesas;
+	
+	@FXML
+	private Label labelTransferencia;
 
 	@FXML
 	private Label labelFluxo;
@@ -131,6 +135,15 @@ public class MainViewController implements Initializable {
 		});
 	}
 
+	@FXML
+	public void onLabelTransferenciasClick() {
+		loadView("/gui/TransferenciaList.fxml", (TransferenciaListController controller) -> {
+			controller.setTransferenciaService(new TransferenciaService());
+			controller.updateTableView();
+
+		});
+	}
+	
 	@FXML
 	public void onLabelFluxoClick() {
 

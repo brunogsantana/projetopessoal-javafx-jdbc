@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -29,48 +30,63 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.CategoriaDespesa;
-import model.services.CategoriaDespesaFilhoService;
-import model.services.CategoriaDespesaService;
+import model.entities.Transferencia;
+import model.services.ContaService;
+import model.services.TransferenciaService;
 
-public class CategoriaDespesaListController implements Initializable, DataChangeListener {
+public class TransferenciaListController implements Initializable, DataChangeListener {
 
-	private CategoriaDespesaService service;
-
-	@FXML
-	private TableView<CategoriaDespesa> tableViewCategoriaDespesa;
+	private TransferenciaService service;
 
 	@FXML
-	private TableColumn<CategoriaDespesa, Integer> tableColumnId;
+	private TableView<Transferencia> tableViewTransferencia;
 
 	@FXML
-	private TableColumn<CategoriaDespesa, String> tableColumnDescricao;
+	private TableColumn<Transferencia, Integer> tableColumnId;
 
 	@FXML
-	private TableColumn<CategoriaDespesa, String> tableColumnCategoriaPaiDespesa;
+	private TableColumn<Transferencia, Date> tableColumnDataOriginalTransferencia;
+
+	@FXML
+	private TableColumn<Transferencia, Date> tableColumnDataConcluidaTransferencia;
+
+	@FXML
+	private TableColumn<Transferencia, String> tableColumnDescricao;
+
+	@FXML
+	private TableColumn<Transferencia, String> tableColumnContaOrigem;
+
+	@FXML
+	private TableColumn<Transferencia, String> tableColumnContaDestino;
+
+	@FXML
+	private TableColumn<Transferencia, Double> tableColumnValor;
 	
 	@FXML
-	private TableColumn<CategoriaDespesa, String> tableColumnCategoriaFilhoDespesa;
+	private TableColumn<Transferencia, Double> tableColumnCustoTransferencia;
 
 	@FXML
-	private TableColumn<CategoriaDespesa, CategoriaDespesa> tableColumnEDIT;
+	private TableColumn<Transferencia, String> tableColumnObs;
 
 	@FXML
-	private TableColumn<CategoriaDespesa, CategoriaDespesa> tableColumnREMOVE;
+	private TableColumn<Transferencia, Transferencia> tableColumnEDIT;
+
+	@FXML
+	private TableColumn<Transferencia, Transferencia> tableColumnREMOVE;
 
 	@FXML
 	private Button btNew;
-	
-	private ObservableList<CategoriaDespesa> obsList;
+
+	private ObservableList<Transferencia> obsList;
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		CategoriaDespesa obj = new CategoriaDespesa();
-		createDialogForm(obj, "/gui/CategoriaDespesaForm.fxml", parentStage);
+		Transferencia obj = new Transferencia();
+		createDialogForm(obj, "/gui/TransferenciaForm.fxml", parentStage);
 	}
-	
-	public void setCategoriaDespesaService(CategoriaDespesaService service) {
+
+	public void setTransferenciaService(TransferenciaService service) {
 		this.service = service;
 	}
 
@@ -81,46 +97,56 @@ public class CategoriaDespesaListController implements Initializable, DataChange
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		tableColumnDataOriginalTransferencia.setCellValueFactory(new PropertyValueFactory<>("dataOriginalTransferencia"));
+		Utils.formatTableColumnDate(tableColumnDataOriginalTransferencia, "dd/MM/yyyy");
+		tableColumnDataConcluidaTransferencia.setCellValueFactory(new PropertyValueFactory<>("dataConcluidaTransferencia"));
+		Utils.formatTableColumnDate(tableColumnDataConcluidaTransferencia, "dd/MM/yyyy");
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-		tableColumnCategoriaPaiDespesa.setCellValueFactory(new PropertyValueFactory<>("catPaiDespesa"));
-		tableColumnCategoriaFilhoDespesa.setCellValueFactory(new PropertyValueFactory<>("catFilhoDespesa"));
+		tableColumnContaDestino.setCellValueFactory(new PropertyValueFactory<>("contaDestino"));
+		tableColumnContaOrigem.setCellValueFactory(new PropertyValueFactory<>("contaOrigem"));
+		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+		Utils.formatTableColumnDouble(tableColumnValor, 2);
+		tableColumnCustoTransferencia.setCellValueFactory(new PropertyValueFactory<>("custoTransferencia"));
+		Utils.formatTableColumnDouble(tableColumnCustoTransferencia, 2);
+		tableColumnObs.setCellValueFactory(new PropertyValueFactory<>("obs"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewCategoriaDespesa.prefHeightProperty().bind(stage.heightProperty());
+		tableViewTransferencia.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<CategoriaDespesa> list = service.findAll();
+		List<Transferencia> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewCategoriaDespesa.setItems(obsList);
+		tableViewTransferencia.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
-			
+
+
 	}
 
-	private void createDialogForm(CategoriaDespesa obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(Transferencia obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-			CategoriaDespesaFormController controller = loader.getController();
-			controller.setCategoriaDespesa(obj);
-			controller.setServices(new CategoriaDespesaService(), new CategoriaDespesaFilhoService());
+			TransferenciaFormController controller = loader.getController();
+			controller.setTransferencia(obj);
+			controller.setServices(new TransferenciaService(), new ContaService());
 			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
-			
+
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Adicionar CategoriaDespesa");
+			dialogStage.setTitle("Adicionar Transferencia");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			Alerts.showAlert("IO Exception", "Error Loading view", e.getMessage(), AlertType.ERROR);
@@ -134,11 +160,11 @@ public class CategoriaDespesaListController implements Initializable, DataChange
 
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEDIT.setCellFactory(param -> new TableCell<CategoriaDespesa, CategoriaDespesa>() {
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Transferencia, Transferencia>() {
 			private final Button button = new Button("edit");
 
 			@Override
-			protected void updateItem(CategoriaDespesa obj, boolean empty) {
+			protected void updateItem(Transferencia obj, boolean empty) {
 				super.updateItem(obj, empty);
 
 				if (obj == null) {
@@ -147,19 +173,18 @@ public class CategoriaDespesaListController implements Initializable, DataChange
 				}
 
 				setGraphic(button);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/CategoriaDespesaForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/TransferenciaForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
 
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnREMOVE.setCellFactory(param -> new TableCell<CategoriaDespesa, CategoriaDespesa>() {
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<Transferencia, Transferencia>() {
 			private final Button button = new Button("remove");
 
 			@Override
-			protected void updateItem(CategoriaDespesa obj, boolean empty) {
+			protected void updateItem(Transferencia obj, boolean empty) {
 				super.updateItem(obj, empty);
 
 				if (obj == null) {
@@ -173,7 +198,7 @@ public class CategoriaDespesaListController implements Initializable, DataChange
 		});
 	}
 
-	private void removeEntity(CategoriaDespesa obj) {
+	private void removeEntity(Transferencia obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 
 		if (result.get() == ButtonType.OK) {

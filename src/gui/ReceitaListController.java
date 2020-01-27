@@ -30,7 +30,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Conta;
 import model.entities.Receita;
 import model.services.CategoriaReceitaService;
 import model.services.ContaService;
